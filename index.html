@@ -1,0 +1,5214 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="工业制造产线大模型高效训练、评测与部署管理系统">
+  <title>工业制造产线大模型高效训练与部署软件 V1.0</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23152f50'/%3E%3Cpath d='M15 17h34v7H15zm0 12h22v7H15zm0 12h34v7H15z' fill='%23dceeff'/%3E%3Ccircle cx='46' cy='32.5' r='7' fill='%2338a8c7'/%3E%3C/svg%3E">
+  <style>
+    :root{--nav:#0d1d31;--nav2:#173a61;--blue:#2463a1;--cyan:#1596ae;--green:#14795b;--amber:#a56a14;--red:#b44343;--ink:#182536;--muted:#69788c;--line:#dce4ec;--bg:#f4f7fa;--card:#fff;--side:248px;--top:72px}
+    *{box-sizing:border-box}html{font-size:16px}body{margin:0;min-width:320px;background:var(--bg);color:var(--ink);font-family:"Segoe UI","Microsoft YaHei","PingFang SC",Arial,sans-serif;line-height:1.55}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #2463a133;outline-offset:2px}
+    aside{position:fixed;inset:0 auto 0 0;width:var(--side);background:var(--nav);color:#c9d7e7;z-index:20;display:flex;flex-direction:column;transition:.2s}.brand{padding:22px 19px 18px;border-bottom:1px solid #ffffff16}.mark{width:38px;height:38px;display:grid;place-items:center;border-radius:6px;background:#e8f3ff;color:var(--nav2);font-weight:800;margin-bottom:12px}.brand b{display:block;color:#fff;font-size:.93rem;line-height:1.5}.brand small{color:#7f98b3;font-size:.72rem;letter-spacing:.08em}.navlabel{padding:18px 18px 7px;color:#718aa4;font-size:.7rem;letter-spacing:.12em}nav{padding:0 9px}.navbtn{width:100%;border:0;background:transparent;color:#b7c8da;padding:10px 11px;border-radius:5px;display:grid;grid-template-columns:30px 1fr 8px;text-align:left;align-items:center;min-height:43px;margin:2px 0}.navbtn:hover{background:#ffffff0e;color:#fff}.navbtn.active{background:var(--nav2);color:#fff}.num{font-size:.72rem;color:#7690ab}.navbtn.active .num{color:#8fdaea}.dot{width:5px;height:5px;border-radius:50%}.navbtn.active .dot{background:#55bfd4}
+    header{position:fixed;left:var(--side);right:0;top:0;height:var(--top);background:#fffffff5;border-bottom:1px solid var(--line);z-index:15;display:flex;align-items:center;justify-content:space-between;padding:0 28px;backdrop-filter:blur(9px)}.title{min-width:0}.title h1{margin:0;font-size:1.08rem;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.title p{margin:3px 0 0;color:var(--muted);font-size:.74rem}.topright{display:flex;align-items:center;gap:10px}.badge{padding:5px 9px;border:1px solid #cdddec;background:#f2f7fc;color:var(--blue);border-radius:4px;font-size:.73rem}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--nav2);color:#fff;font-size:.72rem}.icon{width:37px;height:37px;border:1px solid var(--line);background:#fff;border-radius:5px;color:#4c5d73}.menu{display:none}
+    main{margin-left:var(--side);padding:calc(var(--top) + 27px) 28px 34px}.head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:20px}.head h2{margin:0;font-size:1.42rem;font-weight:650}.head p{margin:6px 0 0;color:var(--muted);font-size:.87rem}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{min-height:37px;padding:8px 12px;border:1px solid var(--line);background:#fff;color:#42536a;border-radius:5px;font-size:.81rem;font-weight:600}.btn:hover{background:#f7fafc;border-color:#afc0d1}.primary{background:var(--blue);border-color:var(--blue);color:#fff}.primary:hover{background:#1e558b}.grid{display:grid;gap:15px}.kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:15px}.cols{grid-template-columns:minmax(0,1.65fr) minmax(290px,.85fr)}.twocols{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:var(--card);border:1px solid var(--line);border-radius:7px;box-shadow:0 2px 9px #1d2e4508}.cardhead{min-height:54px;padding:14px 17px 11px;border-bottom:1px solid #e9eef3;display:flex;align-items:center;justify-content:space-between;gap:12px}.cardhead h3{margin:0;font-size:.92rem}.cardhead span{color:var(--muted);font-size:.73rem}.body{padding:17px}.kpi{padding:16px 17px;position:relative;overflow:hidden}.kpi:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--blue)}.kpi label{display:block;color:var(--muted);font-size:.78rem;margin-bottom:7px}.value{font-size:1.65rem;font-weight:650;letter-spacing:-.03em}.value small{font-size:.72rem;color:var(--muted);font-weight:400;margin-left:4px}.hint{float:right;color:var(--green);font-size:.7rem;margin-top:11px}
+    .tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:700px}.cols table{min-width:610px}th{padding:10px 13px;text-align:left;background:#f8fafc;color:var(--muted);font-size:.72rem;font-weight:650;white-space:nowrap;border-bottom:1px solid var(--line)}td{padding:11px 13px;border-bottom:1px solid #edf1f5;font-size:.8rem;vertical-align:middle}tr:last-child td{border-bottom:0}tbody tr:hover{background:#fbfdff}.name b{display:block;font-weight:600}.name small{display:block;color:var(--muted);font-size:.69rem;margin-top:2px}.status{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;font-size:.73rem}.status:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--muted)}.ok:before{background:var(--green)}.wait:before{background:var(--amber)}.bad:before{background:var(--red)}.tag{display:inline-block;padding:2px 7px;border-radius:4px;background:#edf2f6;color:#4a5b70;font-size:.69rem;white-space:nowrap}.tag.blue{background:#e7f1fa;color:var(--blue)}.tag.green{background:#e3f3ed;color:var(--green)}.tag.amber{background:#fff2d9;color:var(--amber)}.bar{height:6px;background:#e8edf2;border-radius:4px;overflow:hidden;min-width:90px}.bar i{display:block;height:100%;background:var(--blue);border-radius:inherit}.bar.green i{background:var(--green)}.bar.amber i{background:var(--amber)}.barlabel{display:flex;justify-content:space-between;gap:8px;margin-bottom:5px;color:var(--muted);font-size:.7rem}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.input{height:38px;padding:7px 10px;border:1px solid var(--line);border-radius:5px;background:#fff;color:var(--ink);font-size:.8rem;min-width:150px}.search{width:min(360px,100%);flex:1}.resource{padding:0 0 13px;margin:0 0 13px;border-bottom:1px solid #edf1f5}.resource:last-child{border:0;margin:0;padding:0}.rtitle{display:flex;justify-content:space-between;gap:12px;margin-bottom:7px}.rtitle b{font-size:.8rem}.rtitle span{color:var(--muted);font-size:.7rem}.muted{color:var(--muted);font-size:.76rem}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.asset{padding:15px}.assettop{display:flex;justify-content:space-between}.symbol{width:36px;height:36px;border-radius:5px;background:#e7f1fa;color:var(--blue);display:grid;place-items:center;font-size:.71rem;font-weight:800}.asset h3{font-size:.88rem;margin:11px 0 2px}.asset p{font-size:.71rem;color:var(--muted);margin:0 0 12px}.facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;border-top:1px solid #edf1f5;padding-top:11px}.facts small,.metric small{display:block;color:var(--muted);font-size:.65rem}.facts b,.metric b{display:block;font-size:.75rem;margin-top:2px}.metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px;margin-bottom:15px}.metric{padding:13px 14px}.metric b{font-size:1.12rem}.metric em{font-style:normal;color:var(--green);font-size:.64rem}.pipeline{display:grid;grid-template-columns:repeat(5,minmax(115px,1fr));gap:20px;padding:19px;overflow:auto}.step{text-align:center;position:relative}.step:not(:last-child):after{content:"";position:absolute;left:calc(100% + 3px);top:20px;width:14px;height:1px;background:#9dafc1}.node{width:42px;height:42px;border:1px solid #b9c9d9;border-radius:50%;display:grid;place-items:center;margin:0 auto 8px;color:var(--blue);font-size:.7rem;font-weight:700}.step.done .node{background:var(--blue);color:#fff;border-color:var(--blue)}.step b{display:block;font-size:.74rem}.step small{color:var(--muted);font-size:.65rem}.test{width:100%;min-height:94px;resize:vertical;padding:10px;border:1px solid var(--line);border-radius:5px;font-size:.8rem}.output{margin-top:11px;padding:12px;background:#f7f9fb;border:1px solid var(--line);border-radius:5px;min-height:95px;font-size:.78rem;white-space:pre-wrap}.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);padding:0 16px;overflow:auto}.tab{border:0;background:transparent;padding:12px 10px 10px;color:var(--muted);font-size:.77rem;white-space:nowrap;border-bottom:2px solid transparent}.tab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:650}.tabpanel{display:none}.tabpanel.active{display:block}.chart{height:220px;padding:12px}.chart svg{width:100%;height:100%}.chart text{fill:var(--muted);font-size:11px}.gridline{stroke:#e4eaf0}.line{fill:none;stroke:var(--blue);stroke-width:2.4}
+    .modalbg{position:fixed;inset:0;background:#07172b78;z-index:50;display:none;place-items:center;padding:18px}.modalbg.open{display:grid}.modal{width:min(620px,100%);max-height:calc(100vh - 36px);overflow:auto;background:#fff;border-radius:8px;box-shadow:0 25px 70px #081b3333}.modalhead,.modalfoot{padding:15px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.modalhead h3{margin:0}.modalfoot{border-top:1px solid var(--line);border-bottom:0;justify-content:flex-end;gap:8px}.form{padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:.75rem;font-weight:600}.field input,.field select{height:38px;border:1px solid var(--line);border-radius:5px;padding:7px 9px}.toast{position:fixed;right:22px;bottom:22px;z-index:70;background:var(--nav);color:#fff;padding:11px 14px;border-radius:5px;box-shadow:0 12px 35px #10233a33;font-size:.79rem;opacity:0;transform:translateY(20px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:none}
+    @media(max-width:1120px){.kpis{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:800px){aside{transform:translateX(-100%);box-shadow:16px 0 35px #07162c33}aside.open{transform:none}header{left:0;padding:0 15px}.menu{display:block}main{margin-left:0;padding:calc(var(--top) + 20px) 14px 28px}.title h1{max-width:52vw;font-size:.9rem}.title p,.badge{display:none}.head{align-items:flex-start;flex-direction:column}.twocols,.three{grid-template-columns:1fr}}
+    @media(max-width:560px){.kpis,.cards,.metrics,.form{grid-template-columns:1fr}.field.full{grid-column:auto}.topright .icon:not(.menu){display:none}.head h2{font-size:1.25rem}.body{padding:14px}}
+  </style>
+  <style>
+/*
+ * 工业制造产线大模型高效训练与部署软件 V1.0
+ * 扩展交互样式。基础视觉变量与整体布局沿用 index.html 原有设计。
+ */
+
+.subnav {
+  display: flex;
+  gap: 5px;
+  margin: 0 0 18px;
+  padding: 5px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  scrollbar-width: thin;
+}
+
+.subnav button {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #607086;
+  font-size: .75rem;
+  white-space: nowrap;
+}
+
+.subnav button:hover {
+  background: #f3f7fb;
+  color: var(--blue);
+}
+
+.subnav button.active {
+  border-color: #c9dced;
+  background: #eaf3fb;
+  color: #1f5d96;
+  font-weight: 650;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 13px;
+}
+
+.section-head h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.section-head p {
+  max-width: 880px;
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: .77rem;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 13px 15px;
+  border-bottom: 1px solid #e9eef3;
+  background: #fcfdfe;
+}
+
+.toolbar .searchbox {
+  position: relative;
+  flex: 1 1 240px;
+  max-width: 390px;
+}
+
+.toolbar .searchbox input {
+  width: 100%;
+  padding-left: 32px;
+}
+
+.toolbar .searchbox::before {
+  content: "⌕";
+  position: absolute;
+  left: 11px;
+  top: 7px;
+  color: #7b8ba0;
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.btn.danger {
+  border-color: #e7c8c8;
+  background: #fffafa;
+  color: var(--red);
+}
+
+.btn.success {
+  border-color: #bcdacd;
+  background: #f4fbf8;
+  color: var(--green);
+}
+
+.btn.small {
+  min-height: 30px;
+  padding: 5px 9px;
+  font-size: .72rem;
+}
+
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.linkbtn {
+  min-width: 28px;
+  min-height: 27px;
+  padding: 3px 6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--blue);
+  font-size: .7rem;
+}
+
+.linkbtn:hover {
+  background: #eaf3fb;
+}
+
+.linkbtn.delete {
+  color: var(--red);
+}
+
+.linkbtn.delete:hover {
+  background: #fff0f0;
+}
+
+.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable::after {
+  content: " ↕";
+  color: #a3afbd;
+  font-size: .62rem;
+}
+
+.sortable.asc::after {
+  content: " ↑";
+  color: var(--blue);
+}
+
+.sortable.desc::after {
+  content: " ↓";
+  color: var(--blue);
+}
+
+.empty {
+  display: grid;
+  place-items: center;
+  min-height: 270px;
+  padding: 42px;
+  text-align: center;
+}
+
+.empty-mark {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 12px;
+  border: 1px solid #cedae7;
+  border-radius: 50%;
+  background: #f5f9fc;
+  color: #7890a8;
+  font-size: 1.1rem;
+}
+
+.empty h4 {
+  margin: 0 0 4px;
+  font-size: .88rem;
+}
+
+.empty p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: .74rem;
+}
+
+.record-count {
+  color: var(--muted);
+  font-size: .71rem;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 15px;
+  border-top: 1px solid #edf1f5;
+  color: var(--muted);
+  font-size: .7rem;
+}
+
+.pager-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.pagebtn {
+  min-width: 30px;
+  height: 29px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  color: #4c5d73;
+  font-size: .7rem;
+}
+
+.pagebtn.active {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+
+.pagebtn:disabled {
+  cursor: not-allowed;
+  opacity: .45;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.detail-item {
+  min-height: 62px;
+  padding: 11px 12px;
+  border: 1px solid #e3e9ef;
+  border-radius: 5px;
+  background: #fbfcfd;
+}
+
+.detail-item small {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: .66rem;
+}
+
+.detail-item b {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: .78rem;
+  font-weight: 600;
+}
+
+.notice {
+  padding: 11px 13px;
+  border: 1px solid #d5e4f0;
+  border-radius: 5px;
+  background: #f6faff;
+  color: #53677e;
+  font-size: .73rem;
+}
+
+.notice.warning {
+  border-color: #ecd8ad;
+  background: #fffbf2;
+  color: #7e632d;
+}
+
+.notice.error {
+  border-color: #eccaca;
+  background: #fff7f7;
+  color: #8e4a4a;
+}
+
+.progress-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 128px;
+}
+
+.progress-line .bar {
+  flex: 1;
+}
+
+.progress-line span {
+  min-width: 34px;
+  color: var(--muted);
+  font-size: .67rem;
+  text-align: right;
+}
+
+.split-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(280px, .75fr);
+  gap: 15px;
+}
+
+.side-panel {
+  padding: 15px;
+}
+
+.side-panel h4 {
+  margin: 0 0 12px;
+  font-size: .86rem;
+}
+
+.timeline {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline li {
+  position: relative;
+  padding: 0 0 15px 23px;
+  color: #43536a;
+  font-size: .73rem;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 5px;
+  width: 7px;
+  height: 7px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 1px #8eabc7;
+}
+
+.timeline li::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 16px;
+  bottom: 0;
+  width: 1px;
+  background: #d9e2eb;
+}
+
+.timeline li:last-child::after {
+  display: none;
+}
+
+.timeline time {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: .64rem;
+}
+
+.form-section {
+  grid-column: 1 / -1;
+  margin: 4px 0 -2px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #e8edf2;
+  color: #294f76;
+  font-size: .76rem;
+  font-weight: 700;
+}
+
+.field textarea {
+  min-height: 84px;
+  padding: 8px 9px;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+
+.field .checkline {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+
+.field .checkline input {
+  width: 16px;
+  height: 16px;
+}
+
+.field .help {
+  color: var(--muted);
+  font-size: .65rem;
+}
+
+.required::after {
+  content: " *";
+  color: var(--red);
+}
+
+.invalid {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 2px #b4434312;
+}
+
+.modal.wide {
+  width: min(820px, 100%);
+}
+
+.modalhead .modal-subtitle {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: .68rem;
+}
+
+.modalfoot .left-note {
+  margin-right: auto;
+  color: var(--muted);
+  font-size: .67rem;
+}
+
+.drawer {
+  position: fixed;
+  z-index: 45;
+  inset: var(--top) 0 0 auto;
+  width: min(520px, 100vw);
+  padding: 18px;
+  overflow: auto;
+  border-left: 1px solid var(--line);
+  background: #fff;
+  box-shadow: -20px 0 50px #0d213b1a;
+  transform: translateX(105%);
+  transition: transform .22s ease;
+}
+
+.drawer.open {
+  transform: none;
+}
+
+.drawer-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer-head h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.drawer-head p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: .7rem;
+}
+
+.drawer-section {
+  margin-top: 17px;
+}
+
+.drawer-section h4 {
+  margin: 0 0 8px;
+  font-size: .8rem;
+}
+
+.json-preview {
+  max-height: 260px;
+  margin: 0;
+  padding: 12px;
+  overflow: auto;
+  border: 1px solid #dce4ec;
+  border-radius: 5px;
+  background: #f6f8fa;
+  color: #33485f;
+  font: .7rem/1.55 Consolas, "Microsoft YaHei", monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.system-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding: 17px;
+}
+
+.system-form .full {
+  grid-column: 1 / -1;
+}
+
+.api-key {
+  max-width: 260px;
+  overflow: hidden;
+  color: #3e536b;
+  font: .7rem Consolas, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px #14795b16;
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .45; }
+}
+
+.dropzone {
+  padding: 28px 18px;
+  border: 1px dashed #9eb4c9;
+  border-radius: 6px;
+  background: #f8fbfe;
+  text-align: center;
+}
+
+.dropzone.dragover {
+  border-color: var(--blue);
+  background: #edf6fd;
+}
+
+.dropzone strong {
+  display: block;
+  margin-bottom: 3px;
+  font-size: .84rem;
+}
+
+.dropzone p {
+  margin: 0 0 11px;
+  color: var(--muted);
+  font-size: .7rem;
+}
+
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.check-card {
+  padding: 12px;
+  border: 1px solid #e1e8ef;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.check-card b {
+  display: block;
+  margin-bottom: 3px;
+  font-size: .76rem;
+}
+
+.check-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .68rem;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: .66rem;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 5px;
+  border-radius: 50%;
+}
+
+.status.paused::before {
+  background: #7890a8;
+}
+
+.status.running::before {
+  background: var(--green);
+}
+
+.status.failed::before {
+  background: var(--red);
+}
+
+.status.pending::before {
+  background: var(--amber);
+}
+
+@media (max-width: 1120px) {
+  .split-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .section-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .drawer {
+    top: 0;
+    z-index: 80;
+  }
+
+  .check-grid,
+  .system-form {
+    grid-template-columns: 1fr;
+  }
+
+  .system-form .full {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar > .btn,
+  .toolbar > select {
+    flex: 1 1 calc(50% - 8px);
+  }
+
+  .row-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <aside id="sidebar">
+    <div class="brand"><div class="mark">IM</div><b>工业制造产线大模型<br>高效训练与部署软件</b><small>VERSION 1.0</small></div>
+    <div class="navlabel">功能导航</div><nav id="nav"></nav>
+  </aside>
+  <header>
+    <div class="topright"><button class="icon menu" id="menu" aria-label="打开菜单">☰</button><div class="title"><h1>工业制造产线大模型高效训练与部署软件 V1.0</h1><p>多低秩适配器训练、稀疏激活与异构算力部署管理</p></div></div>
+    <div class="topright"><span class="badge">项目环境</span><button class="icon" id="refresh" aria-label="刷新">↻</button><div class="avatar">高训</div></div>
+  </header>
+  <main id="main"></main>
+  <div class="modalbg" id="modal"><div class="modal"><div class="modalhead"><h3 id="modalTitle">新建任务</h3><button class="icon" id="close">×</button></div><div class="form" id="modalForm"></div><div class="modalfoot"><button class="btn" id="cancel">取消</button><button class="btn primary" id="submit">确认创建</button></div></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+(function () {
+  "use strict";
+
+  /* ================================================================
+   *  工业制造产线大模型高效训练与部署软件 V1.0
+   *  单机演示版业务逻辑
+   *  - 九个一级模块、三十四个子模块
+   *  - 本地数据持久化、增删改查、筛选排序、导入导出
+   *  - 训练/评测/部署任务状态控制与进度模拟
+   * ================================================================ */
+
+  const APP_NAME = "工业制造产线大模型高效训练与部署软件 V1.0";
+  const STORAGE_KEY = "im_llm_training_deployment_v1_release_state";
+  const UI_STORAGE_KEY = "im_llm_training_deployment_v1_release_ui";
+  const PAGE_SIZE = 8;
+
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+  const escapeHtml = (value) => String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+  const nowText = () => {
+    const date = new Date();
+    const pad = (number) => String(number).padStart(2, "0");
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  };
+
+  const todayText = () => nowText().slice(0, 10);
+
+  const makeId = (prefix = "REC") => {
+    const time = Date.now().toString(36).toUpperCase();
+    const random = Math.random().toString(36).slice(2, 7).toUpperCase();
+    return `${prefix}-${time}-${random}`;
+  };
+
+  const deepClone = (value) => JSON.parse(JSON.stringify(value));
+
+  const textField = (key, label, required = true, placeholder = "", help = "") => ({
+    key,
+    label,
+    type: "text",
+    required,
+    placeholder,
+    help
+  });
+
+  const numberField = (key, label, required = true, min = 0, max = 999999, step = 1, help = "") => ({
+    key,
+    label,
+    type: "number",
+    required,
+    min,
+    max,
+    step,
+    help
+  });
+
+  const selectField = (key, label, options, required = true, help = "") => ({
+    key,
+    label,
+    type: "select",
+    options,
+    required,
+    help
+  });
+
+  const textareaField = (key, label, required = false, placeholder = "", help = "") => ({
+    key,
+    label,
+    type: "textarea",
+    required,
+    placeholder,
+    help,
+    full: true
+  });
+
+  const checkField = (key, label, help = "") => ({
+    key,
+    label,
+    type: "checkbox",
+    required: false,
+    help
+  });
+
+  const column = (key, label, format = "text", sortable = true) => ({
+    key,
+    label,
+    format,
+    sortable
+  });
+
+  const createSubmodule = (config) => ({
+    view: "table",
+    statusOptions: ["正常", "启用", "停用", "待处理"],
+    allowImport: false,
+    allowRun: false,
+    features: [],
+    fields: [],
+    columns: [],
+    ...config
+  });
+
+  const commonOwnerField = selectField(
+    "owner",
+    "负责人",
+    ["高训", "李研", "王工", "陈工", "系统管理员"]
+  );
+
+  const commonDescriptionField = textareaField(
+    "description",
+    "说明",
+    false,
+    "填写用途、边界条件、配置说明或变更原因"
+  );
+
+  const MODULES = [
+    {
+      key: "overview",
+      number: "01",
+      title: "运行总览",
+      description: "系统统一态势入口，汇聚模型资产、训练任务、异构算力、在线服务和关键事件。",
+      code: "OPS-OVERVIEW",
+      subs: [
+        createSubmodule({
+          key: "overviewMetrics",
+          title: "核心指标看板",
+          description: "汇总模型数量、适配器数量、运行中训练任务、在线节点和推理时延。",
+          collection: "events",
+          action: "登记运行事件",
+          view: "dashboard",
+          features: [
+            "展示模型与适配器总数及版本变化",
+            "统计运行、排队、完成和异常任务",
+            "显示首 Token 时延与 500ms 目标的差距",
+            "支持刷新、查看事件和导出运行报告"
+          ],
+          fields: [
+            textField("name", "事件名称"),
+            textField("code", "事件编号"),
+            selectField("category", "事件类型", ["模型", "训练", "算力", "部署", "系统"]),
+            selectField("level", "事件级别", ["信息", "提醒", "警告", "严重"]),
+            selectField("status", "处理状态", ["已记录", "处理中", "已关闭"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "事件名称", "name"),
+            column("category", "类型", "tag"),
+            column("level", "级别", "level"),
+            column("owner", "负责人"),
+            column("updatedAt", "发生时间"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "trainingStatus",
+          title: "训练任务态势",
+          description: "集中查看训练任务的阶段、进度、损失值、剩余时间和异常情况。",
+          collection: "trainingJobs",
+          action: "新建训练任务",
+          view: "jobs",
+          allowRun: true,
+          features: ["任务进度实时展示", "Loss 与吞吐监控", "运行、暂停、恢复和终止", "任务详情与训练日志联动"],
+          fields: [
+            textField("name", "任务名称"),
+            textField("code", "任务编号"),
+            selectField("strategy", "训练策略", ["多 LoRA", "QLoRA", "LoRA", "全量微调"]),
+            selectField("compute", "算力环境", ["CUDA 4卡", "CUDA 8卡", "国产算力 8卡", "CPU-GPU 混合"]),
+            numberField("progress", "初始进度", true, 0, 100),
+            numberField("loss", "当前 Loss", false, 0, 10, 0.001),
+            selectField("status", "任务状态", ["等待中", "运行中", "已暂停", "已完成", "失败"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "任务", "name"),
+            column("strategy", "策略", "tag"),
+            column("compute", "算力"),
+            column("loss", "Loss"),
+            column("progress", "进度", "progress"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "computeStatus",
+          title: "异构算力态势",
+          description: "监视 CUDA、国产加速卡和 CPU 内存卸载资源的占用、温度与健康率。",
+          collection: "nodes",
+          action: "注册算力节点",
+          view: "resources",
+          features: ["多算力池统一展示", "节点健康和心跳监测", "温度、利用率和内存容量监测", "离线与过载事件提示"],
+          fields: [
+            textField("name", "节点名称"),
+            textField("code", "节点编号"),
+            selectField("type", "节点类型", ["CUDA GPU", "国产加速卡", "CPU 卸载", "云端节点"]),
+            textField("resource", "资源规格"),
+            numberField("utilization", "利用率（%）", true, 0, 100),
+            numberField("temperature", "温度（℃）", false, 0, 120),
+            selectField("status", "节点状态", ["在线", "维护", "离线", "告警"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "节点", "name"),
+            column("type", "类型", "tag"),
+            column("resource", "资源规格"),
+            column("utilization", "利用率", "percent"),
+            column("temperature", "温度", "temperature"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "serviceStatus",
+          title: "推理服务态势",
+          description: "集中展示线上推理端点的副本、可用率、P50/P95 时延和 QPS。",
+          collection: "endpoints",
+          action: "创建推理端点",
+          view: "services",
+          allowRun: true,
+          features: ["推理端点健康检查", "P50/P95 与 QPS 监测", "副本和扩缩容状态展示", "发布、灰度与回滚事件追踪"],
+          fields: [
+            textField("name", "服务名称"),
+            textField("code", "服务编号"),
+            textField("path", "接口路径"),
+            textField("model", "模型版本"),
+            numberField("replicas", "副本数", true, 0, 64),
+            numberField("latency", "首 Token 时延（ms）", true, 1, 99999),
+            numberField("qps", "QPS", true, 0, 99999, 0.1),
+            selectField("status", "服务状态", ["运行中", "灰度中", "已停止", "异常"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "服务", "name"),
+            column("path", "端点"),
+            column("replicas", "副本"),
+            column("latency", "首 Token", "latency"),
+            column("qps", "QPS"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "operationReports",
+          title: "运行事件与报告",
+          description: "记录模型发布、检查点保存、节点异常等关键事件并形成日报、周报和阶段报告。",
+          collection: "reports",
+          action: "生成运行报告",
+          view: "reports",
+          features: ["关键事件留痕", "按时间和严重程度筛选", "日报、周报和阶段报告生成", "项目过程证据导出"],
+          fields: [
+            textField("name", "报告名称"),
+            textField("code", "报告编号"),
+            selectField("type", "报告类型", ["日报", "周报", "月报", "阶段报告", "专项报告"]),
+            textField("period", "统计周期"),
+            selectField("status", "报告状态", ["草稿", "已生成", "已复核", "已归档"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "报告", "name"),
+            column("type", "类型", "tag"),
+            column("period", "统计周期"),
+            column("owner", "编制人"),
+            column("updatedAt", "生成时间"),
+            column("status", "状态", "status")
+          ]
+        })
+      ]
+    },
+
+    {
+      key: "data",
+      number: "02",
+      title: "工业数据",
+      description: "建立文本、图像、视频和设备时序数据从接入、对齐、质检到版本固化的完整链路。",
+      code: "DATA-ASSET",
+      subs: [
+        createSubmodule({
+          key: "datasets",
+          title: "数据集管理",
+          description: "建立可检索、可追溯的工业训练与评测数据资产目录。",
+          collection: "datasets",
+          action: "新建数据集",
+          allowImport: true,
+          features: ["数据集元数据登记", "工位、设备、工序和产品标签", "按场景、模态和版本检索", "数据量与引用关系查看"],
+          fields: [
+            textField("name", "数据集名称"),
+            textField("code", "数据集编号"),
+            selectField("scene", "业务场景", ["质量检测", "设备健康", "工艺优化", "生产调度", "安全校验"]),
+            selectField("modality", "数据模态", ["文本", "图像", "视频", "时序", "多模态"]),
+            textField("size", "数据量"),
+            textField("version", "当前版本"),
+            selectField("status", "状态", ["可用", "检查中", "草稿", "已冻结"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "数据集", "name"),
+            column("scene", "场景"),
+            column("modality", "模态", "tag"),
+            column("size", "数据量"),
+            column("version", "版本"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "dataImports",
+          title: "数据导入与接入",
+          description: "从本地文件、对象存储、数据库和生产系统接入原始工业数据。",
+          collection: "dataImports",
+          action: "创建导入任务",
+          allowImport: true,
+          allowRun: true,
+          view: "imports",
+          features: ["文件与对象存储导入", "JSONL/CSV/Parquet/多媒体支持", "分片与断点续传", "失败重试和原始校验值生成"],
+          fields: [
+            textField("name", "导入任务名称"),
+            textField("code", "任务编号"),
+            selectField("sourceType", "数据源类型", ["本地文件", "对象存储", "数据库", "MES", "SCADA"]),
+            textField("source", "数据源地址"),
+            selectField("format", "数据格式", ["JSONL", "CSV", "Parquet", "图像目录", "视频目录", "自定义"]),
+            numberField("progress", "初始进度", true, 0, 100),
+            selectField("status", "任务状态", ["等待中", "运行中", "已完成", "失败", "已暂停"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "导入任务", "name"),
+            column("sourceType", "数据源", "tag"),
+            column("format", "格式"),
+            column("progress", "进度", "progress"),
+            column("updatedAt", "更新时间"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "multimodalSamples",
+          title: "多模态样本组织",
+          description: "将同一设备、工位或事件窗口下的文本、图像、视频和时序信号组织为训练样本。",
+          collection: "multimodalSamples",
+          action: "新建样本组",
+          features: ["跨模态关联", "时间戳与工序阶段管理", "样本预览与完整性检查", "训练索引生成"],
+          fields: [
+            textField("name", "样本组名称"),
+            textField("code", "样本组编号"),
+            textField("station", "工位/设备"),
+            textField("window", "事件时间窗"),
+            selectField("modalities", "包含模态", ["图像+文本", "视频+文本", "时序+日志", "图像+时序+文本", "全模态"]),
+            numberField("sampleCount", "样本数量"),
+            selectField("status", "关联状态", ["已完成", "组织中", "缺失模态", "待复核"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "样本组", "name"),
+            column("station", "工位/设备"),
+            column("modalities", "模态组合", "tag"),
+            column("sampleCount", "样本数"),
+            column("window", "时间窗口"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "annotations",
+          title: "语义对齐与标注",
+          description: "使用统一工业术语对缺陷、设备状态、工艺参数和生产事件进行语义标识。",
+          collection: "annotations",
+          action: "新建标注任务",
+          allowRun: true,
+          features: ["工业术语词典", "事件级跨模态对齐", "人工复核与驳回", "标注变更记录"],
+          fields: [
+            textField("name", "标注任务名称"),
+            textField("code", "任务编号"),
+            textField("dataset", "目标数据集"),
+            selectField("type", "标注类型", ["缺陷分类", "设备状态", "事件抽取", "工艺参数", "跨模态对齐"]),
+            numberField("progress", "进度", true, 0, 100),
+            numberField("reviewRate", "复核通过率（%）", false, 0, 100, 0.1),
+            selectField("status", "任务状态", ["等待中", "标注中", "复核中", "已完成", "已暂停"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "标注任务", "name"),
+            column("dataset", "数据集"),
+            column("type", "标注类型", "tag"),
+            column("progress", "进度", "progress"),
+            column("reviewRate", "复核率", "percent"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "qualityChecks",
+          title: "数据质量检查",
+          description: "检测缺失、重复、异常、编码错误和多模态时间错位，阻止问题数据进入训练。",
+          collection: "qualityChecks",
+          action: "发起质量检查",
+          allowRun: true,
+          features: ["字段完整性检查", "重复和异常样本识别", "多模态时间戳对齐检查", "质量评分与问题清单"],
+          fields: [
+            textField("name", "检查任务名称"),
+            textField("code", "检查编号"),
+            textField("dataset", "数据集版本"),
+            selectField("ruleSet", "规则集", ["通用质量规则", "图像质检规则", "时序质量规则", "多模态对齐规则"]),
+            numberField("score", "质量评分", false, 0, 100, 0.1),
+            numberField("issues", "问题数量", false, 0, 999999),
+            selectField("status", "检查状态", ["等待中", "检查中", "已通过", "有问题", "失败"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "检查任务", "name"),
+            column("dataset", "数据版本"),
+            column("ruleSet", "规则集"),
+            column("score", "评分", "score"),
+            column("issues", "问题数"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "dataVersions",
+          title: "数据划分与版本",
+          description: "将质检合格的数据划分并固化为可复现、不可变的训练、验证和测试版本。",
+          collection: "dataVersions",
+          action: "创建数据版本",
+          features: ["按产品/工序/时间/比例划分", "不可变版本固化", "版本差异比较", "训练和评测引用追踪"],
+          fields: [
+            textField("name", "版本名称"),
+            textField("code", "版本编号"),
+            textField("dataset", "来源数据集"),
+            textField("version", "版本号"),
+            textField("split", "划分比例", true, "例如 80/10/10"),
+            numberField("records", "记录数"),
+            selectField("status", "版本状态", ["草稿", "已固化", "已冻结", "已弃用"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "数据版本", "name"),
+            column("dataset", "来源数据集"),
+            column("version", "版本"),
+            column("split", "训练/验证/测试"),
+            column("records", "记录数"),
+            column("status", "状态", "status")
+          ]
+        })
+      ]
+    },
+
+    {
+      key: "models",
+      number: "03",
+      title: "模型管理",
+      description: "统一管理 10B 及以上基座模型、低秩适配器、微调模型、版本、兼容信息和模型文件。",
+      code: "MODEL-ASSET",
+      subs: [
+        createSubmodule({
+          key: "baseModels",
+          title: "基座模型管理",
+          description: "管理 10B 及以上工业基座模型的权重、分词器、架构和上下文配置。",
+          collection: "baseModels",
+          action: "导入基座模型",
+          allowImport: true,
+          view: "models",
+          features: ["模型权重与配置导入", "参数规模和最大上下文登记", "完整性与基础加载测试", "来源、许可和所有者管理"],
+          fields: [
+            textField("name", "模型名称"),
+            textField("code", "模型编号"),
+            textField("architecture", "模型架构"),
+            textField("parameters", "参数规模", true, "例如 10B"),
+            textField("context", "最大上下文", true, "例如 64K"),
+            selectField("precision", "默认精度", ["BF16", "FP16", "INT8", "INT4"]),
+            textField("version", "版本号"),
+            selectField("status", "模型状态", ["可用", "验证中", "加载失败", "已弃用"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "基座模型", "name"),
+            column("parameters", "参数规模", "tag"),
+            column("context", "上下文"),
+            column("precision", "精度"),
+            column("version", "版本"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "adapters",
+          title: "低秩适配器管理",
+          description: "管理 LoRA、QLoRA 与多低秩适配器的配置、权重、组合关系和评测状态。",
+          collection: "adapters",
+          action: "新建适配器",
+          view: "models",
+          features: ["秩、缩放与目标层登记", "适配器与基座及智能体任务关联", "启用、冻结、克隆、合并和归档", "适配器版本与评测状态管理"],
+          fields: [
+            textField("name", "适配器名称"),
+            textField("code", "适配器编号"),
+            textField("baseModel", "基座模型"),
+            selectField("type", "适配器类型", ["LoRA", "QLoRA", "多 LoRA", "路由适配器"]),
+            numberField("rank", "秩（Rank）", true, 1, 1024),
+            numberField("alpha", "缩放系数（Alpha）", true, 1, 4096),
+            textField("targetLayers", "目标层"),
+            textField("version", "版本号"),
+            selectField("status", "适配器状态", ["可用", "冻结", "评测中", "已归档"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "适配器", "name"),
+            column("baseModel", "基座模型"),
+            column("type", "类型", "tag"),
+            column("rank", "Rank"),
+            column("version", "版本"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "fineModels",
+          title: "微调模型管理",
+          description: "管理适配器合并或全量微调后的候选模型及其训练、数据和评测溯源。",
+          collection: "fineModels",
+          action: "登记微调模型",
+          view: "models",
+          features: ["关联基座、数据、任务和评测", "业务场景和适用范围登记", "预览、测试、导出和部署", "未通过评测模型上线拦截"],
+          fields: [
+            textField("name", "模型名称"),
+            textField("code", "模型编号"),
+            textField("baseModel", "基座模型"),
+            textField("trainingJob", "训练任务"),
+            selectField("scene", "业务场景", ["质量检测", "设备健康", "工艺优化", "生产调度", "安全校验"]),
+            textField("version", "版本号"),
+            selectField("evaluation", "评测结论", ["通过", "待评测", "不通过", "复核中"]),
+            selectField("status", "模型状态", ["候选", "可部署", "已部署", "已归档"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "微调模型", "name"),
+            column("baseModel", "基座"),
+            column("scene", "业务场景", "tag"),
+            column("version", "版本"),
+            column("evaluation", "评测", "status"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "modelVersions",
+          title: "模型版本管理",
+          description: "支持多版本共存、变更追踪、默认版本设置、冻结、弃用和安全回滚。",
+          collection: "modelVersions",
+          action: "创建模型版本",
+          features: ["规范版本号和阶段标签", "变更摘要和评测差异", "默认、冻结、弃用与回滚", "部署引用版本保护"],
+          fields: [
+            textField("name", "模型名称"),
+            textField("code", "版本记录编号"),
+            textField("version", "版本号"),
+            selectField("stage", "阶段", ["开发", "测试", "预发布", "生产"]),
+            checkField("isDefault", "设为默认版本"),
+            textField("change", "变更摘要"),
+            selectField("status", "版本状态", ["活动", "冻结", "已弃用", "已回滚"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "模型", "name"),
+            column("version", "版本"),
+            column("stage", "阶段", "tag"),
+            column("isDefault", "默认", "boolean"),
+            column("change", "变更摘要"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "compatibilities",
+          title: "兼容性标识",
+          description: "记录模型在 CUDA 和国产算力环境中的运行时、框架、驱动和算子兼容性。",
+          collection: "compatibilities",
+          action: "新增兼容记录",
+          allowRun: true,
+          features: ["运行时与框架依赖登记", "兼容检测结果与限制说明", "精度、量化格式和部署包标识", "训练部署环境选择约束"],
+          fields: [
+            textField("name", "兼容项名称"),
+            textField("code", "兼容项编号"),
+            textField("model", "模型版本"),
+            selectField("backend", "算力后端", ["CUDA", "国产算力 A", "国产算力 B", "CPU"]),
+            textField("runtime", "运行时/框架"),
+            selectField("precision", "精度", ["BF16", "FP16", "INT8", "INT4"]),
+            numberField("compatRate", "兼容率（%）", false, 0, 100, 0.1),
+            selectField("status", "检测状态", ["通过", "部分兼容", "待检测", "不兼容"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("model", "模型", "name"),
+            column("backend", "后端", "tag"),
+            column("runtime", "运行环境"),
+            column("precision", "精度"),
+            column("compatRate", "兼容率", "percent"),
+            column("status", "结论", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "modelFiles",
+          title: "模型文件与溯源",
+          description: "管理权重、配置、分词器、校验值、说明文件以及完整的数据与训练溯源。",
+          collection: "modelFiles",
+          action: "登记模型文件",
+          allowImport: true,
+          features: ["文件清单、大小和校验值", "关键文件完整性验证", "数据、训练配置和作者溯源", "受控下载和内部分发"],
+          fields: [
+            textField("name", "文件名称"),
+            textField("code", "文件编号"),
+            textField("model", "所属模型"),
+            selectField("type", "文件类型", ["权重", "配置", "分词器", "说明", "评测报告", "部署包"]),
+            textField("size", "文件大小"),
+            textField("checksum", "SHA256 校验值"),
+            textField("source", "来源任务/数据"),
+            selectField("status", "文件状态", ["完整", "校验中", "校验失败", "已归档"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "文件", "name"),
+            column("model", "所属模型"),
+            column("type", "类型", "tag"),
+            column("size", "大小"),
+            column("checksum", "校验值", "code"),
+            column("status", "状态", "status")
+          ]
+        })
+      ]
+    },
+
+    {
+      key: "training",
+      number: "04",
+      title: "训练微调",
+      description: "将多低秩适配器、QLoRA、稀疏激活、CPU-GPU 混合卸载和分布式调度组织为可恢复训练流程。",
+      code: "TRAIN-ENGINE",
+      subs: [
+        createSubmodule({
+          key: "trainingJobs",
+          title: "微调任务配置",
+          description: "组合基座模型、数据版本、训练策略、超参数和算力资源，形成可执行微调任务。",
+          collection: "trainingJobs",
+          action: "新建微调任务",
+          view: "jobs",
+          allowRun: true,
+          features: ["模型与数据选择", "学习率、批次和序列长度配置", "LoRA/QLoRA/多 LoRA 策略", "配置完整性和资源可行性校验"],
+          fields: [
+            textField("name", "任务名称"),
+            textField("code", "任务编号"),
+            textField("baseModel", "基座模型"),
+            textField("dataset", "数据版本"),
+            selectField("strategy", "微调策略", ["多 LoRA", "QLoRA", "LoRA", "全量微调"]),
+            numberField("learningRate", "学习率", true, 0, 1, 0.000001),
+            numberField("batchSize", "批次大小", true, 1, 4096),
+            numberField("sequenceLength", "序列长度", true, 128, 131072),
+            selectField("compute", "算力环境", ["CUDA 4卡", "CUDA 8卡", "国产算力 8卡", "CPU-GPU 混合"]),
+            numberField("progress", "初始进度", true, 0, 100),
+            selectField("status", "任务状态", ["草稿", "等待中", "运行中", "已暂停", "已完成", "失败"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "任务", "name"),
+            column("baseModel", "基座模型"),
+            column("strategy", "策略", "tag"),
+            column("compute", "资源"),
+            column("progress", "进度", "progress"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "multiAdapterJobs",
+          title: "多低秩适配器微调",
+          description: "为不同智能体配置专属与共享适配器，控制冻结、激活和更新范围并支持联合训练。",
+          collection: "multiAdapterJobs",
+          action: "新建多适配器任务",
+          allowRun: true,
+          view: "jobs",
+          features: ["多组 Rank/Alpha/目标层配置", "共享与任务专属适配器", "冻结、激活和更新范围控制", "独立或组合适配器输出"],
+          fields: [
+            textField("name", "任务名称"),
+            textField("code", "任务编号"),
+            textField("baseModel", "基座模型"),
+            textField("adapters", "适配器组合"),
+            numberField("adapterCount", "适配器数量", true, 1, 64),
+            selectField("sharing", "共享策略", ["完全独立", "底层共享", "任务层共享", "动态路由"]),
+            textField("compute", "算力环境"),
+            numberField("progress", "进度", true, 0, 100),
+            selectField("status", "任务状态", ["草稿", "等待中", "运行中", "已暂停", "已完成", "失败"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "联合训练任务", "name"),
+            column("adapters", "适配器组合"),
+            column("adapterCount", "数量"),
+            column("sharing", "共享策略", "tag"),
+            column("progress", "进度", "progress"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "quantJobs",
+          title: "QLoRA 与低精度训练",
+          description: "以 4-bit 或 8-bit 加载基座权重，降低显存占用并监测量化误差和收敛情况。",
+          collection: "quantJobs",
+          action: "新建低精度任务",
+          allowRun: true,
+          view: "jobs",
+          features: ["4-bit/8-bit 权重加载", "量化类型与计算精度配置", "量化误差和显存监测", "多算力后端兼容配置"],
+          fields: [
+            textField("name", "任务名称"),
+            textField("code", "任务编号"),
+            textField("baseModel", "基座模型"),
+            selectField("bits", "量化位宽", ["4-bit", "8-bit"]),
+            selectField("quantType", "量化类型", ["NF4", "FP4", "INT8", "自定义"]),
+            selectField("computeDtype", "计算精度", ["BF16", "FP16", "FP32"]),
+            textField("memory", "显存占用"),
+            numberField("progress", "进度", true, 0, 100),
+            selectField("status", "任务状态", ["草稿", "等待中", "运行中", "已暂停", "已完成", "失败"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "低精度任务", "name"),
+            column("baseModel", "基座模型"),
+            column("bits", "位宽", "tag"),
+            column("computeDtype", "计算精度"),
+            column("progress", "进度", "progress"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "hybridJobs",
+          title: "CPU-GPU 混合训练",
+          description: "将不活跃参数、优化器状态和冷适配器卸载至 CPU，并执行异步预取和动态调入。",
+          collection: "hybridJobs",
+          action: "新建混合训练任务",
+          allowRun: true,
+          view: "jobs",
+          features: ["模型层与优化器放置策略", "CPU 预取、锁页内存和异步传输", "按显存阈值动态调入释放", "显存、内存、通信与吞吐监测"],
+          fields: [
+            textField("name", "任务名称"),
+            textField("code", "任务编号"),
+            textField("baseModel", "基座模型"),
+            textField("gpuPolicy", "GPU 驻留策略"),
+            textField("cpuPolicy", "CPU 卸载策略"),
+            numberField("memoryLimit", "CPU 内存上限（GB）", true, 1, 8192),
+            numberField("gpuThreshold", "显存阈值（%）", true, 1, 100),
+            numberField("progress", "进度", true, 0, 100),
+            selectField("status", "任务状态", ["草稿", "等待中", "运行中", "已暂停", "已完成", "失败"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "混合训练任务", "name"),
+            column("gpuPolicy", "GPU 策略"),
+            column("cpuPolicy", "CPU 策略"),
+            column("memoryLimit", "CPU 内存", "memory"),
+            column("progress", "进度", "progress"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "distributedJobs",
+          title: "分布式训练与资源调度",
+          description: "将训练任务调度到单机或多节点异构资源，提供队列、优先级、配额和异常重试。",
+          collection: "distributedJobs",
+          action: "新建分布式任务",
+          allowRun: true,
+          view: "jobs",
+          features: ["GPU 类型/卡数/显存申请", "队列、优先级与配额", "训练启动前节点健康校验", "资源异常重试与重新调度"],
+          fields: [
+            textField("name", "任务名称"),
+            textField("code", "任务编号"),
+            selectField("backend", "算力后端", ["CUDA", "国产算力", "混合后端"]),
+            numberField("nodes", "节点数", true, 1, 128),
+            numberField("cards", "加速卡数", true, 1, 1024),
+            selectField("queue", "资源队列", ["重点任务", "常规微调", "兼容测试", "推理保障"]),
+            selectField("priority", "优先级", ["高", "中", "低"]),
+            numberField("progress", "进度", true, 0, 100),
+            selectField("status", "任务状态", ["草稿", "等待中", "调度中", "运行中", "已完成", "失败"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "分布式任务", "name"),
+            column("backend", "后端", "tag"),
+            column("nodes", "节点"),
+            column("cards", "加速卡"),
+            column("queue", "队列"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "trainingLogs",
+          title: "训练监控与日志",
+          description: "展示 Loss、学习率、吞吐、资源使用、运行日志和告警，并支持任务控制。",
+          collection: "trainingLogs",
+          action: "登记训练日志",
+          view: "monitor",
+          features: ["训练/验证 Loss 和吞吐曲线", "GPU/CPU/内存/通信指标", "分级日志检索和异常定位", "暂停、继续、终止和克隆"],
+          fields: [
+            textField("name", "日志摘要"),
+            textField("code", "日志编号"),
+            textField("job", "训练任务"),
+            selectField("level", "日志级别", ["INFO", "WARN", "ERROR", "DEBUG"]),
+            textField("metric", "指标/阶段"),
+            textField("value", "指标值/消息"),
+            selectField("status", "处理状态", ["已记录", "待处理", "已确认", "已关闭"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("updatedAt", "时间"),
+            column("job", "训练任务", "name"),
+            column("level", "级别", "level"),
+            column("metric", "指标/阶段"),
+            column("value", "值/消息"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "checkpoints",
+          title: "检查点与恢复",
+          description: "保存适配器、优化器、随机状态和训练配置，并从指定检查点恢复训练。",
+          collection: "checkpoints",
+          action: "保存检查点",
+          allowRun: true,
+          features: ["按步数、时间或最佳指标保存", "完整训练状态持久化", "指定检查点继续训练", "保留和清理策略"],
+          fields: [
+            textField("name", "检查点名称"),
+            textField("code", "检查点编号"),
+            textField("job", "训练任务"),
+            numberField("step", "训练步数", true, 0, 999999999),
+            textField("metric", "最佳指标"),
+            textField("size", "文件大小"),
+            selectField("retention", "保留策略", ["永久", "保留 30 天", "保留 7 天", "仅最佳 3 个"]),
+            selectField("status", "检查点状态", ["可恢复", "保存中", "校验失败", "已清理"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "检查点", "name"),
+            column("job", "训练任务"),
+            column("step", "步数"),
+            column("metric", "最佳指标"),
+            column("size", "大小"),
+            column("status", "状态", "status")
+          ]
+        })
+      ]
+    },
+
+    {
+      key: "routing",
+      number: "05",
+      title: "稀疏路由",
+      description: "以专家池、能力映射和 Top-K 动态路由实现稀疏激活，减少显存占用和无效计算。",
+      code: "SPARSE-ROUTING",
+      subs: [
+        createSubmodule({
+          key: "experts",
+          title: "专家池管理",
+          description: "统一管理可被路由的专家网络和智能体适配器及其能力、资源和质量信息。",
+          collection: "experts",
+          action: "新增专家",
+          features: ["专家能力与资源需求登记", "专家与基座模型兼容关系", "启用、停用、更换和版本固定", "调用量、命中率和质量指标"],
+          fields: [
+            textField("name", "专家名称"),
+            textField("code", "专家编号"),
+            selectField("capability", "能力标签", ["质量检测", "设备健康", "工艺优化", "生产调度", "安全校验", "工业通用"]),
+            textField("baseModel", "兼容基座"),
+            textField("version", "专家版本"),
+            textField("resource", "资源需求"),
+            numberField("hitRate", "命中率（%）", false, 0, 100, 0.1),
+            selectField("status", "专家状态", ["启用", "停用", "验证中", "已归档"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "专家", "name"),
+            column("capability", "能力", "tag"),
+            column("baseModel", "基座模型"),
+            column("version", "版本"),
+            column("hitRate", "命中率", "percent"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "capabilityMappings",
+          title: "智能体能力映射",
+          description: "定义工业任务、工序、设备、模态标签与专家能力的对应关系和优先级。",
+          collection: "capabilityMappings",
+          action: "新建能力映射",
+          features: ["任务、工序、设备与模态标签", "候选专家与优先级", "映射版本和灰度验证", "缺失与冲突映射检查"],
+          fields: [
+            textField("name", "映射名称"),
+            textField("code", "映射编号"),
+            selectField("taskType", "任务类型", ["质量检测", "设备诊断", "工艺推荐", "生产排程", "安全校验"]),
+            textField("tags", "匹配标签"),
+            textField("experts", "候选专家"),
+            selectField("priority", "优先级", ["高", "中", "低"]),
+            textField("version", "映射版本"),
+            selectField("status", "映射状态", ["启用", "灰度", "停用", "冲突"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "能力映射", "name"),
+            column("taskType", "任务类型", "tag"),
+            column("tags", "匹配标签"),
+            column("experts", "候选专家"),
+            column("priority", "优先级"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "routingStrategies",
+          title: "Top-K 路由策略",
+          description: "根据任务、模态和上下文动态选择少量专家，输出专家得分、激活列表和路由权重。",
+          collection: "routingStrategies",
+          action: "新建路由策略",
+          features: ["K 值、温度、阈值和随机性", "任务/模态/上下文联合选路", "专家得分与路由权重输出", "训练和推理差异化策略"],
+          fields: [
+            textField("name", "策略名称"),
+            textField("code", "策略编号"),
+            selectField("input", "输入类型", ["文本", "图像+文本", "时序+日志", "多模态"]),
+            numberField("topK", "Top-K", true, 1, 16),
+            numberField("temperature", "路由温度", true, 0, 10, 0.01),
+            numberField("threshold", "激活阈值", true, 0, 1, 0.01),
+            textField("fallback", "回退专家"),
+            selectField("status", "策略状态", ["启用", "调试中", "停用", "异常"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "路由策略", "name"),
+            column("input", "输入"),
+            column("topK", "Top-K", "tag"),
+            column("temperature", "温度"),
+            column("fallback", "回退专家"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "balanceRules",
+          title: "负载均衡与容量控制",
+          description: "监测专家负载偏差，配置均衡损失和容量上限，并在过载时切换备选专家。",
+          collection: "balanceRules",
+          action: "新建均衡规则",
+          features: ["专家激活频率和负载偏差", "均衡损失与容量上限", "过载时备选专家切换", "负载分布与调优建议"],
+          fields: [
+            textField("name", "规则名称"),
+            textField("code", "规则编号"),
+            textField("expertPool", "专家池"),
+            numberField("capacity", "容量上限（请求/秒）", true, 1, 999999),
+            numberField("balanceWeight", "均衡损失权重", true, 0, 10, 0.01),
+            numberField("deviation", "负载偏差（%）", false, 0, 100, 0.1),
+            textField("fallback", "备选专家"),
+            selectField("status", "规则状态", ["启用", "观察中", "停用", "告警"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "均衡规则", "name"),
+            column("expertPool", "专家池"),
+            column("capacity", "容量上限"),
+            column("balanceWeight", "均衡权重"),
+            column("deviation", "偏差", "percent"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "residencyPlans",
+          title: "专家驻留与动态迁移",
+          description: "按热度将专家分为热、温、冷层级，在 GPU 与 CPU 之间预取、迁移和缓存。",
+          collection: "residencyPlans",
+          action: "新建驻留计划",
+          features: ["热/温/冷专家分级", "冷专家 CPU 内存驻留", "路由命中前预取和调入", "切换耗时、传输量和命中率"],
+          fields: [
+            textField("name", "驻留计划名称"),
+            textField("code", "计划编号"),
+            textField("expert", "专家名称"),
+            selectField("level", "热度级别", ["热", "温", "冷"]),
+            selectField("location", "驻留位置", ["GPU", "CPU 锁页内存", "CPU 普通内存", "对象存储"]),
+            numberField("hitRate", "缓存命中率（%）", false, 0, 100, 0.1),
+            numberField("transferMs", "迁移耗时（ms）", false, 0, 999999),
+            selectField("status", "计划状态", ["生效", "迁移中", "待生效", "异常"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("expert", "专家", "name"),
+            column("level", "热度", "tag"),
+            column("location", "驻留位置"),
+            column("hitRate", "命中率", "percent"),
+            column("transferMs", "迁移耗时", "latency"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "routingLogs",
+          title: "路由监控与回放",
+          description: "展示专家得分、激活路径、路由时延、命中率和回退情况，并支持历史请求回放。",
+          collection: "routingLogs",
+          action: "创建回放任务",
+          allowRun: true,
+          view: "monitor",
+          features: ["专家得分与激活路径", "路由时延、命中率和回退率", "历史请求路由回放", "失败回退与事件留痕"],
+          fields: [
+            textField("name", "回放/监控名称"),
+            textField("code", "记录编号"),
+            textField("requestId", "请求 ID"),
+            textField("route", "激活路径"),
+            numberField("latency", "路由时延（ms）", false, 0, 999999),
+            textField("scores", "专家得分"),
+            selectField("result", "路由结果", ["成功", "已回退", "失败", "待回放"]),
+            selectField("status", "处理状态", ["已记录", "回放中", "已完成", "待处理"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("requestId", "请求 ID", "code"),
+            column("route", "激活路径", "name"),
+            column("latency", "路由时延", "latency"),
+            column("scores", "专家得分"),
+            column("result", "结果", "status"),
+            column("updatedAt", "时间")
+          ]
+        })
+      ]
+    },
+
+    {
+      key: "compute",
+      number: "06",
+      title: "算力资源",
+      description: "统一抽象 CUDA GPU、国产加速卡、CPU 内存卸载节点、资源队列和后端兼容能力。",
+      code: "COMPUTE-POOL",
+      subs: [
+        createSubmodule({
+          key: "nodes",
+          title: "算力节点注册",
+          description: "将训练、推理和内存卸载节点纳入统一管理并持续更新节点心跳。",
+          collection: "nodes",
+          action: "注册算力节点",
+          view: "resources",
+          features: ["节点名称、IP、用途和资源池", "CPU/内存/加速卡/存储检测", "驱动、运行时、容器和网络校验", "节点心跳与状态更新"],
+          fields: [
+            textField("name", "节点名称"),
+            textField("code", "节点编号"),
+            textField("ip", "节点 IP"),
+            selectField("type", "节点类型", ["CUDA GPU", "国产加速卡", "CPU 卸载", "云端节点"]),
+            selectField("purpose", "主要用途", ["训练", "推理", "混合", "内存卸载"]),
+            textField("resource", "资源规格"),
+            numberField("utilization", "利用率（%）", true, 0, 100),
+            numberField("temperature", "温度（℃）", false, 0, 120),
+            selectField("status", "节点状态", ["在线", "维护", "离线", "告警"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "节点", "name"),
+            column("ip", "IP"),
+            column("type", "类型", "tag"),
+            column("purpose", "用途"),
+            column("utilization", "利用率", "percent"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "cudaPools",
+          title: "CUDA 资源池",
+          description: "管理 CUDA 节点的 GPU 型号、卡数、显存、温度、利用率、驱动和框架版本。",
+          collection: "cudaPools",
+          action: "新建 CUDA 资源池",
+          view: "resources",
+          features: ["GPU 型号、卡数、显存和温度", "CUDA/驱动/框架版本", "训练和低时延推理资源分配", "节点维护、隔离和恢复"],
+          fields: [
+            textField("name", "资源池名称"),
+            textField("code", "资源池编号"),
+            textField("gpuModel", "GPU 型号"),
+            numberField("cards", "总卡数", true, 1, 4096),
+            numberField("available", "可用卡数", true, 0, 4096),
+            textField("memory", "单卡显存"),
+            textField("runtime", "CUDA/驱动/框架"),
+            numberField("utilization", "利用率（%）", true, 0, 100),
+            selectField("status", "资源池状态", ["可用", "繁忙", "维护", "异常"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "CUDA 资源池", "name"),
+            column("gpuModel", "GPU 型号"),
+            column("cards", "总卡数"),
+            column("available", "可用"),
+            column("utilization", "利用率", "percent"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "domesticPools",
+          title: "国产算力资源池",
+          description: "管理国产加速卡、运行时、框架组合、可用资源和不支持算子的替代方案。",
+          collection: "domesticPools",
+          action: "新建国产资源池",
+          view: "resources",
+          features: ["硬件、驱动、运行时和框架组合", "加速卡数量、内存和利用率", "兼容任务调度", "不支持算子与替代方案记录"],
+          fields: [
+            textField("name", "资源池名称"),
+            textField("code", "资源池编号"),
+            textField("accelerator", "加速卡型号"),
+            numberField("cards", "总卡数", true, 1, 4096),
+            numberField("available", "可用卡数", true, 0, 4096),
+            textField("memory", "单卡内存"),
+            textField("runtime", "运行时/框架"),
+            numberField("utilization", "利用率（%）", true, 0, 100),
+            selectField("status", "资源池状态", ["可用", "繁忙", "维护", "异常"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "国产资源池", "name"),
+            column("accelerator", "加速卡"),
+            column("cards", "总卡数"),
+            column("available", "可用"),
+            column("utilization", "利用率", "percent"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "cpuPools",
+          title: "CPU 内存卸载池",
+          description: "为大模型训练提供大容量 CPU 内存、NUMA、锁页内存、预取队列和传输带宽。",
+          collection: "cpuPools",
+          action: "新建 CPU 卸载池",
+          view: "resources",
+          features: ["CPU 核数、NUMA 和内存容量", "锁页内存、预取队列和传输带宽", "优化器状态和冷适配器容量分配", "换入换出量和传输耗时"],
+          fields: [
+            textField("name", "卸载池名称"),
+            textField("code", "卸载池编号"),
+            numberField("cores", "CPU 核数", true, 1, 8192),
+            numberField("numa", "NUMA 节点数", true, 1, 128),
+            numberField("memoryGb", "总内存（GB）", true, 1, 65536),
+            numberField("availableGb", "可用内存（GB）", true, 0, 65536),
+            textField("bandwidth", "传输带宽"),
+            numberField("utilization", "利用率（%）", true, 0, 100),
+            selectField("status", "资源池状态", ["可用", "繁忙", "维护", "异常"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "CPU 卸载池", "name"),
+            column("cores", "CPU 核数"),
+            column("memoryGb", "总内存", "memory"),
+            column("availableGb", "可用内存", "memory"),
+            column("utilization", "利用率", "percent"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "resourceQueues",
+          title: "资源队列与配额",
+          description: "通过队列、优先级、并发数、卡数和 CPU 内存配额管理多任务资源竞争。",
+          collection: "resourceQueues",
+          action: "新建资源队列",
+          features: ["重点/常规/兼容测试队列", "并发数、卡数和内存配额", "优先级调整与公平调度", "等待时间、成功率和空转率统计"],
+          fields: [
+            textField("name", "队列名称"),
+            textField("code", "队列编号"),
+            selectField("priority", "默认优先级", ["高", "中", "低"]),
+            numberField("concurrency", "最大并发", true, 1, 1024),
+            numberField("cardQuota", "加速卡配额", true, 0, 4096),
+            numberField("cpuMemoryQuota", "CPU 内存配额（GB）", true, 0, 65536),
+            numberField("waiting", "等待任务数", false, 0, 99999),
+            selectField("status", "队列状态", ["启用", "暂停接收", "已停用", "拥塞"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "资源队列", "name"),
+            column("priority", "优先级", "tag"),
+            column("concurrency", "最大并发"),
+            column("cardQuota", "卡配额"),
+            column("waiting", "等待任务"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "environmentChecks",
+          title: "环境与算子兼容检测",
+          description: "检查模型所需算子和环境依赖，执行小规模加载、前向和训练测试并给出替代方案。",
+          collection: "environmentChecks",
+          action: "发起兼容检测",
+          allowRun: true,
+          features: ["模型所需算子支持检查", "不兼容算子替代或回退建议", "小规模加载/前向/训练测试", "兼容清单与环境报告"],
+          fields: [
+            textField("name", "检测任务名称"),
+            textField("code", "检测编号"),
+            textField("model", "模型版本"),
+            selectField("backend", "目标后端", ["CUDA", "国产算力 A", "国产算力 B", "CPU"]),
+            textField("runtime", "运行环境"),
+            numberField("supportedOps", "支持算子数", false, 0, 999999),
+            numberField("unsupportedOps", "不支持算子数", false, 0, 999999),
+            selectField("status", "检测状态", ["等待中", "检测中", "通过", "部分兼容", "不兼容"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "兼容检测", "name"),
+            column("model", "模型"),
+            column("backend", "后端", "tag"),
+            column("runtime", "运行环境"),
+            column("unsupportedOps", "不支持算子"),
+            column("status", "结论", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "benchmarks",
+          title: "算力性能对比",
+          description: "以同模型、同数据、同参数比较不同算力后端的训练吞吐、时延、功耗和资源成本。",
+          collection: "benchmarks",
+          action: "新建基准测试",
+          allowRun: true,
+          features: ["训练吞吐/显存/功耗/耗时", "首 Token/生成速度/并发吞吐", "同口径跨后端对照", "资源选型和成本优化"],
+          fields: [
+            textField("name", "基准测试名称"),
+            textField("code", "测试编号"),
+            textField("model", "测试模型"),
+            selectField("backend", "算力后端", ["CUDA", "国产算力 A", "国产算力 B", "CPU-GPU 混合"]),
+            textField("throughput", "训练/推理吞吐"),
+            numberField("latency", "首 Token 时延（ms）", false, 0, 999999),
+            textField("memory", "内存/显存占用"),
+            textField("power", "功耗"),
+            selectField("status", "测试状态", ["等待中", "测试中", "已完成", "失败"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "基准测试", "name"),
+            column("backend", "后端", "tag"),
+            column("throughput", "吞吐"),
+            column("latency", "首 Token", "latency"),
+            column("memory", "内存/显存"),
+            column("status", "状态", "status")
+          ]
+        })
+      ]
+    },
+
+    {
+      key: "evaluation",
+      number: "07",
+      title: "模型评测",
+      description: "对模型业务质量、推理性能、长上下文、跨算力一致性和项目验收指标进行统一评测。",
+      code: "MODEL-EVAL",
+      subs: [
+        createSubmodule({
+          key: "qualityEvals",
+          title: "业务质量评测",
+          description: "评估模型在质量检测、故障诊断、工艺优化和生产调度等任务上的业务效果。",
+          collection: "qualityEvals",
+          action: "发起质量评测",
+          allowRun: true,
+          features: ["准确率/F1/命中率/自定义指标", "测试数据与基线模型选择", "模型和适配器横向对比", "错误样本与指标分解"],
+          fields: [
+            textField("name", "评测任务名称"),
+            textField("code", "评测编号"),
+            textField("model", "候选模型"),
+            textField("dataset", "测试数据"),
+            selectField("metric", "主指标", ["准确率", "F1", "召回率", "命中率", "业务自定义"]),
+            numberField("score", "评测分数", false, 0, 100, 0.01),
+            textField("baseline", "基线模型"),
+            selectField("status", "评测状态", ["等待中", "评测中", "通过", "不通过", "待复核"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "质量评测", "name"),
+            column("model", "模型"),
+            column("dataset", "测试集"),
+            column("metric", "主指标"),
+            column("score", "分数", "score"),
+            column("status", "结论", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "performanceEvals",
+          title: "推理性能评测",
+          description: "在指定硬件和并发条件下测量首 Token 时延、QPS、错误率、尾延迟和资源占用。",
+          collection: "performanceEvals",
+          action: "发起性能评测",
+          allowRun: true,
+          features: ["首 Token/总响应/Token 生成速度", "并发 QPS/错误率/尾延迟", "显存/CPU 内存/缓存命中率", "500ms 目标自动判定"],
+          fields: [
+            textField("name", "性能评测名称"),
+            textField("code", "评测编号"),
+            textField("model", "模型版本"),
+            selectField("backend", "硬件环境", ["CUDA", "国产算力 A", "国产算力 B"]),
+            numberField("concurrency", "并发数", true, 1, 10000),
+            numberField("latency", "首 Token 时延（ms）", false, 0, 999999),
+            numberField("qps", "QPS", false, 0, 999999, 0.1),
+            numberField("errorRate", "错误率（%）", false, 0, 100, 0.01),
+            selectField("status", "评测状态", ["等待中", "评测中", "通过", "不通过", "失败"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "性能评测", "name"),
+            column("model", "模型"),
+            column("backend", "环境", "tag"),
+            column("concurrency", "并发"),
+            column("latency", "首 Token", "latency"),
+            column("status", "结论", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "contextEvals",
+          title: "长上下文评测",
+          description: "验证模型在 64K 或更长工业文档、日志和时序摘要输入下的稳定性与准确性。",
+          collection: "contextEvals",
+          action: "发起长上下文评测",
+          allowRun: true,
+          features: ["多长度工业输入构造", "截断/内存溢出/遗忘检查", "检索定位和回答准确性", "长度与时延显存关系"],
+          fields: [
+            textField("name", "评测任务名称"),
+            textField("code", "评测编号"),
+            textField("model", "模型版本"),
+            selectField("contextLength", "上下文长度", ["8K", "16K", "32K", "64K", "128K"]),
+            textField("dataset", "长文本测试集"),
+            numberField("accuracy", "检索准确率（%）", false, 0, 100, 0.01),
+            numberField("latency", "平均时延（ms）", false, 0, 999999),
+            selectField("status", "评测状态", ["等待中", "评测中", "通过", "不通过", "失败"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "长上下文评测", "name"),
+            column("model", "模型"),
+            column("contextLength", "长度", "tag"),
+            column("accuracy", "准确率", "percent"),
+            column("latency", "平均时延", "latency"),
+            column("status", "结论", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "consistencyEvals",
+          title: "跨算力一致性评测",
+          description: "在统一数据、精度和采样参数下比较 CUDA 与国产算力环境的输出差异。",
+          collection: "consistencyEvals",
+          action: "发起一致性评测",
+          allowRun: true,
+          features: ["统一参数跨后端对照", "数值误差和结果一致率", "超阈值差异样本标记", "跨后端一致性报告"],
+          fields: [
+            textField("name", "评测任务名称"),
+            textField("code", "评测编号"),
+            textField("model", "模型版本"),
+            selectField("sourceBackend", "基准后端", ["CUDA", "国产算力 A", "国产算力 B"]),
+            selectField("targetBackend", "对比后端", ["国产算力 A", "国产算力 B", "CUDA"]),
+            numberField("consistency", "一致率（%）", false, 0, 100, 0.001),
+            numberField("difference", "差异率（%）", false, 0, 100, 0.001),
+            selectField("status", "评测状态", ["等待中", "评测中", "通过", "不通过", "失败"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "一致性评测", "name"),
+            column("model", "模型"),
+            column("sourceBackend", "基准后端"),
+            column("targetBackend", "对比后端"),
+            column("consistency", "一致率", "percent"),
+            column("status", "结论", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "acceptanceIndicators",
+          title: "验收指标管理",
+          description: "将项目技术指标转换为可执行、可判定的评测项，并关联测试数据、报告和复核人。",
+          collection: "acceptanceIndicators",
+          action: "新增验收指标",
+          features: ["参数规模/时延/上下文阈值", "CUDA/国产生态/云部署检查项", "达标/待验证/未达标展示", "指标证据链管理"],
+          fields: [
+            textField("name", "指标名称"),
+            textField("code", "指标编号"),
+            textField("target", "目标值"),
+            textField("actual", "当前值"),
+            textField("evidence", "证据/报告"),
+            selectField("reviewer", "复核人", ["高训", "李研", "项目负责人", "第三方测评机构"]),
+            selectField("status", "达标状态", ["已达标", "待验证", "未达标", "不适用"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "验收指标", "name"),
+            column("target", "目标值"),
+            column("actual", "当前值"),
+            column("evidence", "证据"),
+            column("reviewer", "复核人"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "evaluationReports",
+          title: "评测报告与数据导出",
+          description: "将模型、数据、环境、参数和结果整理为内部报告或第三方测评数据包。",
+          collection: "evaluationReports",
+          action: "生成评测报告",
+          view: "reports",
+          features: ["模型/数据/环境/参数摘要", "详细样本和性能指标导出", "内部报告与第三方数据包", "报告版本与导出留痕"],
+          fields: [
+            textField("name", "报告名称"),
+            textField("code", "报告编号"),
+            selectField("type", "报告类型", ["业务质量", "推理性能", "长上下文", "一致性", "第三方测评数据包"]),
+            textField("model", "模型版本"),
+            textField("tasks", "关联评测任务"),
+            textField("version", "报告版本"),
+            selectField("status", "报告状态", ["草稿", "已生成", "已复核", "已导出"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "评测报告", "name"),
+            column("type", "类型", "tag"),
+            column("model", "模型"),
+            column("version", "版本"),
+            column("updatedAt", "生成时间"),
+            column("status", "状态", "status")
+          ]
+        })
+      ]
+    },
+
+    {
+      key: "deployment",
+      number: "08",
+      title: "部署推理",
+      description: "将通过评测的模型、适配器和运行环境打包为云端服务，提供在线、批量和动态适配器推理。",
+      code: "DEPLOY-INFER",
+      subs: [
+        createSubmodule({
+          key: "deployments",
+          title: "部署编排",
+          description: "组合模型、适配器、计算后端、副本和环境参数，生成可执行部署计划。",
+          collection: "deployments",
+          action: "创建部署",
+          allowRun: true,
+          features: ["模型版本与适配器组合", "CUDA 或国产算力后端", "副本/显存/CPU/端口/环境参数", "开发/测试/生产环境隔离"],
+          fields: [
+            textField("name", "部署名称"),
+            textField("code", "部署编号"),
+            textField("model", "模型版本"),
+            textField("adapters", "适配器组合"),
+            selectField("backend", "算力后端", ["CUDA", "国产算力 A", "国产算力 B"]),
+            selectField("environment", "目标环境", ["开发", "测试", "预发布", "生产"]),
+            numberField("replicas", "副本数", true, 0, 128),
+            textField("port", "服务端口"),
+            numberField("progress", "部署进度", true, 0, 100),
+            selectField("status", "部署状态", ["草稿", "等待中", "部署中", "运行中", "失败", "已停止"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "部署", "name"),
+            column("model", "模型"),
+            column("backend", "后端", "tag"),
+            column("environment", "环境"),
+            column("progress", "进度", "progress"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "modelPackages",
+          title: "模型转换与打包",
+          description: "执行权重格式转换、量化、适配器打包并生成目标后端运行时镜像和启动配置。",
+          collection: "modelPackages",
+          action: "创建转换任务",
+          allowRun: true,
+          features: ["权重转换/量化/适配器打包", "后端运行时镜像生成", "模型文件/算子/依赖完整性", "包版本和镜像摘要"],
+          fields: [
+            textField("name", "转换任务名称"),
+            textField("code", "任务编号"),
+            textField("model", "源模型"),
+            selectField("target", "目标格式", ["标准权重包", "CUDA 推理包", "国产算力推理包", "量化包", "容器镜像"]),
+            selectField("quantization", "量化配置", ["不量化", "INT8", "INT4", "AWQ", "GPTQ"]),
+            textField("image", "镜像名称"),
+            numberField("progress", "进度", true, 0, 100),
+            selectField("status", "任务状态", ["等待中", "转换中", "已完成", "失败", "已取消"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "转换任务", "name"),
+            column("model", "源模型"),
+            column("target", "目标格式", "tag"),
+            column("quantization", "量化"),
+            column("progress", "进度", "progress"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "adapterBindings",
+          title: "动态适配器加载",
+          description: "在共享基座模型实例中预热、缓存、加载和卸载智能体适配器。",
+          collection: "adapterBindings",
+          action: "创建适配器绑定",
+          allowRun: true,
+          features: ["服务可用适配器清单", "预热、缓存、动态加载和卸载", "按任务或路由结果选适配器", "切换时延、命中率和回退"],
+          fields: [
+            textField("name", "绑定名称"),
+            textField("code", "绑定编号"),
+            textField("service", "目标服务"),
+            textField("baseModel", "共享基座"),
+            textField("adapters", "适配器列表"),
+            textField("defaultAdapter", "默认适配器"),
+            numberField("switchLatency", "切换时延（ms）", false, 0, 999999),
+            numberField("cacheHit", "缓存命中率（%）", false, 0, 100, 0.1),
+            selectField("status", "绑定状态", ["启用", "预热中", "停用", "异常"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "动态绑定", "name"),
+            column("service", "服务"),
+            column("adapters", "适配器"),
+            column("defaultAdapter", "默认"),
+            column("cacheHit", "缓存命中", "percent"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "endpoints",
+          title: "在线推理端点",
+          description: "向工业应用提供同步、流式和多轮推理接口，并记录时延、Token 数和错误码。",
+          collection: "endpoints",
+          action: "创建推理端点",
+          allowRun: true,
+          view: "inference",
+          features: ["同步/流式/多轮推理", "鉴权/限流/超时/重试", "首 Token/总时延/Token/错误码", "页面内在线测试和请求示例"],
+          fields: [
+            textField("name", "端点名称"),
+            textField("code", "端点编号"),
+            textField("path", "接口路径"),
+            textField("model", "模型版本"),
+            selectField("protocol", "协议", ["HTTP", "HTTPS", "WebSocket", "内部 RPC"]),
+            numberField("replicas", "副本数", true, 0, 128),
+            numberField("latency", "首 Token 时延（ms）", false, 0, 999999),
+            numberField("qps", "QPS", false, 0, 999999, 0.1),
+            selectField("status", "端点状态", ["运行中", "灰度中", "已停止", "异常"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "推理端点", "name"),
+            column("path", "接口路径", "code"),
+            column("model", "模型"),
+            column("replicas", "副本"),
+            column("latency", "首 Token", "latency"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "batchJobs",
+          title: "批量推理",
+          description: "对 JSONL、CSV 等输入执行分片、排队、并行推理、失败重试和结果导出。",
+          collection: "batchJobs",
+          action: "新建批量任务",
+          allowImport: true,
+          allowRun: true,
+          view: "jobs",
+          features: ["JSONL/CSV 批量输入", "分片/排队/并行/重试", "进度/成功/失败/预计时间", "结果和异常样本分开导出"],
+          fields: [
+            textField("name", "批量任务名称"),
+            textField("code", "任务编号"),
+            textField("endpoint", "目标端点"),
+            selectField("format", "输入格式", ["JSONL", "CSV", "Parquet"]),
+            numberField("records", "记录数", true, 1, 999999999),
+            numberField("success", "成功数", false, 0, 999999999),
+            numberField("failed", "失败数", false, 0, 999999999),
+            numberField("progress", "进度", true, 0, 100),
+            selectField("status", "任务状态", ["等待中", "运行中", "已暂停", "已完成", "失败"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "批量任务", "name"),
+            column("endpoint", "目标端点"),
+            column("records", "记录数"),
+            column("success", "成功"),
+            column("failed", "失败"),
+            column("progress", "进度", "progress"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "accelerationProfiles",
+          title: "推理加速与缓存",
+          description: "使用动态批处理、KV Cache、前缀缓存和流式输出降低时延、提高吞吐。",
+          collection: "accelerationProfiles",
+          action: "新建加速配置",
+          features: ["动态批次与等待窗口", "KV Cache 容量和淘汰策略", "前缀缓存/重复合并/流式输出", "面向时延和吞吐的参数调优"],
+          fields: [
+            textField("name", "配置名称"),
+            textField("code", "配置编号"),
+            textField("service", "目标服务"),
+            numberField("maxBatch", "最大批次", true, 1, 4096),
+            numberField("waitMs", "等待窗口（ms）", true, 0, 10000),
+            textField("kvCache", "KV Cache 容量"),
+            selectField("eviction", "淘汰策略", ["LRU", "LFU", "TTL", "自适应"]),
+            checkField("prefixCache", "启用前缀缓存"),
+            checkField("streaming", "启用流式输出"),
+            selectField("status", "配置状态", ["启用", "调优中", "停用", "异常"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "加速配置", "name"),
+            column("service", "服务"),
+            column("maxBatch", "最大批次"),
+            column("waitMs", "等待窗口", "latency"),
+            column("kvCache", "KV Cache"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "releaseRecords",
+          title: "弹性扩缩容与发布回滚",
+          description: "根据流量和健康指标调整副本，执行滚动、灰度发布，并在失败时自动回滚。",
+          collection: "releaseRecords",
+          action: "创建发布计划",
+          allowRun: true,
+          features: ["最小/最大副本和触发阈值", "滚动更新/灰度发布/流量比例", "健康检查失败自动回滚", "发布/扩缩容/回滚审计"],
+          fields: [
+            textField("name", "发布计划名称"),
+            textField("code", "发布编号"),
+            textField("service", "目标服务"),
+            textField("version", "发布版本"),
+            selectField("strategy", "发布策略", ["滚动发布", "灰度发布", "蓝绿发布", "直接替换"]),
+            numberField("minReplicas", "最小副本", true, 0, 128),
+            numberField("maxReplicas", "最大副本", true, 1, 512),
+            numberField("traffic", "新版本流量（%）", true, 0, 100),
+            numberField("progress", "发布进度", true, 0, 100),
+            selectField("status", "发布状态", ["草稿", "等待中", "发布中", "已完成", "已回滚", "失败"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "发布计划", "name"),
+            column("service", "服务"),
+            column("version", "版本"),
+            column("strategy", "策略", "tag"),
+            column("progress", "进度", "progress"),
+            column("status", "状态", "status")
+          ]
+        })
+      ]
+    },
+
+    {
+      key: "system",
+      number: "09",
+      title: "系统管理",
+      description: "提供用户、权限、审计、监控、告警、全局配置和开放 API 的统一治理能力。",
+      code: "SYSTEM-GOV",
+      subs: [
+        createSubmodule({
+          key: "users",
+          title: "用户管理",
+          description: "维护用户账号、所属单位、项目组、角色、状态、最后登录和异常信息。",
+          collection: "users",
+          action: "新增用户",
+          features: ["新增/编辑/禁用/恢复用户", "单位和项目组维护", "登录状态与异常查看", "用户信息导出与审核"],
+          fields: [
+            textField("name", "用户姓名"),
+            textField("code", "用户编号"),
+            textField("email", "电子邮箱"),
+            textField("organization", "所属单位"),
+            textField("project", "项目组"),
+            selectField("role", "角色", ["系统管理员", "训练管理员", "模型工程师", "评测人员", "业务验证人员", "只读用户"]),
+            selectField("status", "账号状态", ["正常", "禁用", "待审核", "锁定"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "用户", "user"),
+            column("organization", "所属单位"),
+            column("role", "角色", "tag"),
+            column("project", "项目组"),
+            column("lastLogin", "最后登录"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "roles",
+          title: "角色与权限",
+          description: "按角色、项目、环境、菜单、按钮、数据和 API 范围执行最小权限控制。",
+          collection: "roles",
+          action: "新增角色",
+          features: ["系统和业务角色定义", "菜单/按钮/数据/API 权限", "生产部署与回滚高风险权限", "最小权限和职责分离检查"],
+          fields: [
+            textField("name", "角色名称"),
+            textField("code", "角色编号"),
+            textField("scope", "资源范围"),
+            textField("permissions", "权限集合"),
+            numberField("users", "用户数", false, 0, 99999),
+            checkField("highRisk", "包含高风险权限"),
+            selectField("status", "角色状态", ["启用", "停用", "待审核"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "角色", "name"),
+            column("scope", "资源范围"),
+            column("permissions", "权限集合"),
+            column("users", "用户数"),
+            column("highRisk", "高风险", "boolean"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "audits",
+          title: "审计日志",
+          description: "对数据、训练、模型、部署、回滚和权限操作记录操作人、对象、详情与结果。",
+          collection: "audits",
+          action: "登记审计事件",
+          features: ["操作人/时间/对象/动作/结果", "按用户和资源类型筛选", "高风险操作重点标识", "审计导出与资源详情联动"],
+          fields: [
+            textField("name", "操作摘要"),
+            textField("code", "审计编号"),
+            textField("operator", "操作人"),
+            selectField("action", "操作类型", ["创建", "修改", "删除", "启动", "暂停", "发布", "回滚", "授权"]),
+            textField("object", "操作对象"),
+            selectField("risk", "风险级别", ["普通", "重要", "高风险"]),
+            selectField("status", "操作结果", ["成功", "失败", "部分成功"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("updatedAt", "时间"),
+            column("operator", "操作人", "user"),
+            column("action", "操作", "tag"),
+            column("object", "对象", "name"),
+            column("risk", "风险"),
+            column("status", "结果", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "monitoring",
+          title: "监控与日志中心",
+          description: "集中检索 API、训练、路由、推理和调度日志，查看节点、服务、任务和网关指标。",
+          collection: "monitoring",
+          action: "新增监控项",
+          view: "monitor",
+          features: ["多服务日志统一检索", "节点/服务/任务/网关指标", "级别/服务/关键词筛选", "日志下载和问题定位"],
+          fields: [
+            textField("name", "监控项名称"),
+            textField("code", "监控项编号"),
+            selectField("source", "数据源", ["训练引擎", "推理网关", "路由服务", "资源调度", "系统 API"]),
+            textField("metric", "指标名称"),
+            textField("value", "当前值"),
+            textField("threshold", "阈值"),
+            selectField("level", "级别", ["正常", "提醒", "警告", "严重"]),
+            selectField("status", "监控状态", ["启用", "停用", "告警中"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "监控项", "name"),
+            column("source", "数据源", "tag"),
+            column("metric", "指标"),
+            column("value", "当前值"),
+            column("threshold", "阈值"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "alerts",
+          title: "告警规则与通知",
+          description: "针对训练失败、资源过载、P95 时延和服务可用率配置分级告警与通知。",
+          collection: "alerts",
+          action: "新建告警规则",
+          features: ["资源/时延/可用率阈值", "按环境和业务场景分级", "告警合并/抑制/确认/关闭", "系统消息和邮件通知"],
+          fields: [
+            textField("name", "告警规则名称"),
+            textField("code", "规则编号"),
+            selectField("metric", "监控指标", ["GPU 利用率", "显存使用率", "CPU 内存", "P95 时延", "服务可用率", "训练失败"]),
+            textField("condition", "触发条件"),
+            selectField("severity", "严重程度", ["提示", "一般", "严重", "紧急"]),
+            textField("channels", "通知渠道"),
+            textField("receivers", "通知对象"),
+            selectField("status", "规则状态", ["启用", "停用", "静默中", "告警中"]),
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "告警规则", "name"),
+            column("metric", "指标"),
+            column("condition", "触发条件"),
+            column("severity", "级别", "level"),
+            column("channels", "通知渠道"),
+            column("status", "状态", "status")
+          ]
+        }),
+        createSubmodule({
+          key: "settings",
+          title: "系统设置",
+          description: "管理系统名称、默认环境、资源队列、保留策略、时区和全局安全配置。",
+          collection: "settings",
+          action: "保存系统设置",
+          view: "settings",
+          features: ["系统名称/版本/时区/时间格式", "默认训练队列/评测环境/部署环境", "模型/日志/检查点/报告保留期", "配置校验和变更记录"],
+          fields: [],
+          columns: []
+        }),
+        createSubmodule({
+          key: "apiKeys",
+          title: "API 文档与密钥",
+          description: "提供数据、模型、训练、部署和推理 API 文档，管理访问密钥、权限范围和到期时间。",
+          collection: "apiKeys",
+          action: "生成 API 密钥",
+          view: "api",
+          features: ["API 分类和请求响应说明", "调用示例与状态码", "访问密钥/范围/到期/禁用", "调用量、错误率和审计信息"],
+          fields: [
+            textField("name", "密钥名称"),
+            textField("code", "密钥编号"),
+            selectField("scope", "权限范围", ["只读", "数据管理", "模型与训练", "部署与推理", "全部权限"]),
+            textField("expiresAt", "到期日期", true, "YYYY-MM-DD"),
+            selectField("status", "密钥状态", ["启用", "禁用", "已过期"]),
+            commonOwnerField,
+            commonDescriptionField
+          ],
+          columns: [
+            column("name", "密钥", "name"),
+            column("token", "访问令牌", "secret", false),
+            column("scope", "权限范围", "tag"),
+            column("expiresAt", "到期时间"),
+            column("calls", "调用量"),
+            column("status", "状态", "status")
+          ]
+        })
+      ]
+    }
+  ];
+
+  // The user manual is the source of truth for the visible information
+  // architecture. Reuse the mature forms and views above while exposing only
+  // the 34 submodules documented in chapters 5-13.
+  const sourceModules = new Map(MODULES.map((module) => [module.key, module]));
+  const manualSubmodule = (sourceModuleKey, sourceSubmoduleKey, title, overrides = {}) => {
+    const source = sourceModules
+      .get(sourceModuleKey)
+      .subs.find((submodule) => submodule.key === sourceSubmoduleKey);
+    return { ...source, ...overrides, title };
+  };
+
+  const manualModuleLayout = {
+    overview: [
+      ["overview", "overviewMetrics", "核心指标看板"],
+      ["overview", "trainingStatus", "训练任务态势"],
+      ["overview", "computeStatus", "异构算力态势"],
+      ["overview", "serviceStatus", "推理服务态势"],
+      ["overview", "operationReports", "运行事件与报告"]
+    ],
+    data: [
+      ["data", "datasets", "数据资产"],
+      ["data", "dataImports", "数据接入"],
+      ["data", "multimodalSamples", "多模态样本"],
+      ["data", "dataVersions", "数据处理与版本"]
+    ],
+    models: [
+      ["models", "baseModels", "模型资产"],
+      ["models", "adapters", "适配器管理"],
+      ["models", "modelVersions", "模型版本"],
+      ["models", "modelFiles", "模型详情"]
+    ],
+    training: [
+      ["training", "trainingJobs", "训练任务"],
+      ["training", "multiAdapterJobs", "新建训练任务"],
+      ["training", "trainingLogs", "训练过程监控"],
+      ["training", "checkpoints", "微调模板"]
+    ],
+    routing: [
+      ["routing", "routingStrategies", "路由策略"],
+      ["routing", "experts", "专家与适配器资源"],
+      ["routing", "routingLogs", "路由运行监测"]
+    ],
+    compute: [
+      ["compute", "nodes", "算力节点"],
+      ["compute", "resourceQueues", "资源队列"],
+      ["overview", "computeStatus", "资源监控", { key: "resourceMonitoring" }]
+    ],
+    evaluation: [
+      ["evaluation", "qualityEvals", "评测任务"],
+      ["evaluation", "performanceEvals", "指标对比"],
+      ["evaluation", "evaluationReports", "评测报告"]
+    ],
+    deployment: [
+      ["deployment", "deployments", "推理服务"],
+      ["deployment", "releaseRecords", "服务详情与扩缩容"],
+      ["deployment", "endpoints", "在线推理"],
+      ["deployment", "batchJobs", "接口与批量推理"]
+    ],
+    system: [
+      ["system", "users", "用户与角色"],
+      ["system", "monitoring", "运行事件"],
+      ["system", "audits", "审计日志"],
+      ["system", "settings", "系统配置"]
+    ]
+  };
+
+  MODULES.forEach((module) => {
+    module.subs = manualModuleLayout[module.key].map((definition) =>
+      manualSubmodule(...definition)
+    );
+  });
+
+  /* ================================================================
+   *  初始业务数据
+   * ================================================================ */
+
+  const seedOverrides = {
+    events: [
+      {
+        id: "EVT-001",
+        name: "设备健康模型版本发布",
+        code: "EVT-20260921-001",
+        category: "模型",
+        level: "信息",
+        owner: "高训",
+        description: "Equipment-Health-Adapter v1.6.0 已通过评测并完成资产登记。",
+        status: "已关闭",
+        updatedAt: "2026-09-21 10:18"
+      },
+      {
+        id: "EVT-002",
+        name: "国产训练节点温度提醒",
+        code: "EVT-20260921-002",
+        category: "算力",
+        level: "提醒",
+        owner: "王工",
+        description: "domestic-train-02 节点峰值温度达到 76℃，已触发风扇策略。",
+        status: "处理中",
+        updatedAt: "2026-09-21 09:42"
+      },
+      {
+        id: "EVT-003",
+        name: "产线通用服务自动扩容",
+        code: "EVT-20260921-003",
+        category: "部署",
+        level: "信息",
+        owner: "系统管理员",
+        description: "production-general 服务因连续五分钟 QPS 超过阈值，从 2 个副本扩容至 4 个副本。",
+        status: "已记录",
+        updatedAt: "2026-09-21 09:31"
+      }
+    ],
+
+    datasets: [
+      {
+        id: "DS-001",
+        name: "冰箱外观质检数据集",
+        code: "DS-QC-001",
+        scene: "质量检测",
+        modality: "多模态",
+        size: "38.6 万条",
+        version: "v2.4",
+        owner: "李研",
+        description: "包含门体划痕、色差、凹陷图像与检验文本。",
+        status: "可用",
+        updatedAt: "2026-09-20 16:12"
+      },
+      {
+        id: "DS-002",
+        name: "发泡设备运行时序集",
+        code: "DS-EQ-014",
+        scene: "设备健康",
+        modality: "时序",
+        size: "126.4 万条",
+        version: "v1.8",
+        owner: "王工",
+        description: "包含振动、温度、电流和维修日志。",
+        status: "可用",
+        updatedAt: "2026-09-19 14:08"
+      },
+      {
+        id: "DS-003",
+        name: "装配工艺视频数据集",
+        code: "DS-PR-009",
+        scene: "工艺优化",
+        modality: "视频",
+        size: "8.2 万段",
+        version: "v1.3",
+        owner: "陈工",
+        description: "装配动作视频、工艺卡和异常事件说明。",
+        status: "检查中",
+        updatedAt: "2026-09-21 08:50"
+      }
+    ],
+
+    baseModels: [
+      {
+        id: "MODEL-001",
+        name: "IM-Foundation-10B",
+        code: "BM-IM-10B",
+        architecture: "Decoder Transformer",
+        parameters: "10B",
+        context: "64K",
+        precision: "BF16",
+        version: "v2.1.0",
+        owner: "高训",
+        description: "面向工业制造产线场景的通用基座模型。",
+        status: "可用",
+        updatedAt: "2026-09-20 18:20"
+      },
+      {
+        id: "MODEL-002",
+        name: "IM-Vision-Language-12B",
+        code: "BM-IM-VL-12B",
+        architecture: "Vision-Language Transformer",
+        parameters: "12B",
+        context: "64K",
+        precision: "BF16",
+        version: "v1.4.2",
+        owner: "李研",
+        description: "支持工业图像、文本和工艺文档联合编码。",
+        status: "验证中",
+        updatedAt: "2026-09-21 09:05"
+      }
+    ],
+
+    adapters: [
+      {
+        id: "ADAPTER-001",
+        name: "Quality-Agent-LoRA",
+        code: "AD-QC-001",
+        baseModel: "IM-Foundation-10B v2.1.0",
+        type: "多 LoRA",
+        rank: 32,
+        alpha: 64,
+        targetLayers: "q_proj,k_proj,v_proj,o_proj",
+        version: "v2.3.1",
+        owner: "李研",
+        description: "外观质检、缺陷分类和原因分析适配器。",
+        status: "可用",
+        updatedAt: "2026-09-20 15:46"
+      },
+      {
+        id: "ADAPTER-002",
+        name: "Equipment-Health-Adapter",
+        code: "AD-EH-014",
+        baseModel: "IM-Foundation-10B v2.1.0",
+        type: "QLoRA",
+        rank: 16,
+        alpha: 32,
+        targetLayers: "q_proj,v_proj,gate_proj",
+        version: "v1.6.0",
+        owner: "王工",
+        description: "设备状态识别、故障定位和维护建议适配器。",
+        status: "可用",
+        updatedAt: "2026-09-21 10:18"
+      },
+      {
+        id: "ADAPTER-003",
+        name: "Process-Optimization-Mix",
+        code: "AD-OP-008",
+        baseModel: "IM-Foundation-10B v2.1.0",
+        type: "路由适配器",
+        rank: 24,
+        alpha: 48,
+        targetLayers: "attention + mlp",
+        version: "v1.2.4",
+        owner: "陈工",
+        description: "工艺参数推荐和多目标优化适配器组合。",
+        status: "评测中",
+        updatedAt: "2026-09-21 08:30"
+      }
+    ],
+
+    trainingJobs: [
+      {
+        id: "TRAIN-001",
+        name: "质检智能体适配器训练",
+        code: "TR-20260921-001",
+        baseModel: "IM-Foundation-10B v2.1.0",
+        dataset: "冰箱外观质检数据集 v2.4",
+        strategy: "多 LoRA",
+        learningRate: 0.0002,
+        batchSize: 32,
+        sequenceLength: 8192,
+        compute: "CUDA 4卡",
+        progress: 72,
+        loss: 0.184,
+        owner: "李研",
+        description: "训练缺陷分类、原因分析和复核建议三个任务适配器。",
+        status: "运行中",
+        updatedAt: "2026-09-21 10:26"
+      },
+      {
+        id: "TRAIN-002",
+        name: "设备健康智能体训练",
+        code: "TR-20260920-014",
+        baseModel: "IM-Foundation-10B v2.1.0",
+        dataset: "发泡设备运行时序集 v1.8",
+        strategy: "QLoRA",
+        learningRate: 0.00015,
+        batchSize: 16,
+        sequenceLength: 16384,
+        compute: "国产算力 8卡",
+        progress: 64,
+        loss: 0.217,
+        owner: "王工",
+        description: "国产算力环境下的设备故障诊断适配器训练。",
+        status: "运行中",
+        updatedAt: "2026-09-21 10:24"
+      },
+      {
+        id: "TRAIN-003",
+        name: "排程智能体增量微调",
+        code: "TR-20260921-021",
+        baseModel: "IM-Foundation-10B v2.1.0",
+        dataset: "生产排程指令集 v0.9",
+        strategy: "LoRA",
+        learningRate: 0.0001,
+        batchSize: 16,
+        sequenceLength: 32768,
+        compute: "CPU-GPU 混合",
+        progress: 0,
+        loss: "-",
+        owner: "高训",
+        description: "等待重点任务队列释放两张 GPU。",
+        status: "等待中",
+        updatedAt: "2026-09-21 10:12"
+      }
+    ],
+
+    nodes: [
+      {
+        id: "NODE-001",
+        name: "cuda-train-01",
+        code: "NODE-CUDA-01",
+        ip: "10.20.8.11",
+        type: "CUDA GPU",
+        purpose: "训练",
+        resource: "8×GPU / 512GB RAM",
+        utilization: 78,
+        temperature: 68,
+        status: "在线",
+        updatedAt: "2026-09-21 10:27"
+      },
+      {
+        id: "NODE-002",
+        name: "domestic-train-02",
+        code: "NODE-DOM-02",
+        ip: "10.20.9.22",
+        type: "国产加速卡",
+        purpose: "训练",
+        resource: "8×加速卡 / 512GB RAM",
+        utilization: 63,
+        temperature: 76,
+        status: "告警",
+        updatedAt: "2026-09-21 10:27"
+      },
+      {
+        id: "NODE-003",
+        name: "cpu-offload-01",
+        code: "NODE-CPU-01",
+        ip: "10.20.10.31",
+        type: "CPU 卸载",
+        purpose: "内存卸载",
+        resource: "192 核 / 1.5TB RAM",
+        utilization: 58,
+        temperature: 54,
+        status: "在线",
+        updatedAt: "2026-09-21 10:27"
+      },
+      {
+        id: "NODE-004",
+        name: "cuda-infer-03",
+        code: "NODE-CUDA-03",
+        ip: "10.20.8.33",
+        type: "CUDA GPU",
+        purpose: "推理",
+        resource: "4×GPU / 320GB RAM",
+        utilization: 42,
+        temperature: 61,
+        status: "在线",
+        updatedAt: "2026-09-21 10:27"
+      }
+    ],
+
+    endpoints: [
+      {
+        id: "ENDPOINT-001",
+        name: "产线通用大模型",
+        code: "EP-GENERAL-01",
+        path: "/api/v1/generate",
+        model: "IM-Foundation-10B v2.1.0",
+        protocol: "HTTPS",
+        replicas: 4,
+        latency: 438,
+        qps: 18.7,
+        description: "工业知识问答、多工序分析和综合决策服务。",
+        status: "运行中",
+        updatedAt: "2026-09-21 10:27"
+      },
+      {
+        id: "ENDPOINT-002",
+        name: "质检智能体",
+        code: "EP-QUALITY-02",
+        path: "/api/v1/quality",
+        model: "Quality-Agent-LoRA v2.3.1",
+        protocol: "HTTPS",
+        replicas: 3,
+        latency: 216,
+        qps: 26.4,
+        description: "图像缺陷识别、原因分析和复核建议服务。",
+        status: "运行中",
+        updatedAt: "2026-09-21 10:27"
+      },
+      {
+        id: "ENDPOINT-003",
+        name: "工艺优化服务",
+        code: "EP-PROCESS-03",
+        path: "/api/v1/process",
+        model: "Process-Optimization-Mix v1.2.4",
+        protocol: "HTTPS",
+        replicas: 2,
+        latency: 367,
+        qps: 9.8,
+        description: "当前仅向 20% 生产流量开放。",
+        status: "灰度中",
+        updatedAt: "2026-09-21 10:22"
+      }
+    ],
+
+    experts: [
+      {
+        id: "EXPERT-001",
+        name: "质量检测专家",
+        code: "EXP-QC-01",
+        capability: "质量检测",
+        baseModel: "IM-Foundation-10B",
+        version: "v2.3.1",
+        resource: "GPU 常驻 6GB",
+        hitRate: 31.8,
+        owner: "李研",
+        status: "启用",
+        updatedAt: "2026-09-21 10:20"
+      },
+      {
+        id: "EXPERT-002",
+        name: "设备健康专家",
+        code: "EXP-EH-02",
+        capability: "设备健康",
+        baseModel: "IM-Foundation-10B",
+        version: "v1.6.0",
+        resource: "GPU 常驻 5GB",
+        hitRate: 24.6,
+        owner: "王工",
+        status: "启用",
+        updatedAt: "2026-09-21 10:20"
+      },
+      {
+        id: "EXPERT-003",
+        name: "工艺优化专家",
+        code: "EXP-OP-03",
+        capability: "工艺优化",
+        baseModel: "IM-Foundation-10B",
+        version: "v1.2.4",
+        resource: "CPU 候选 / 5GB",
+        hitRate: 22.1,
+        owner: "陈工",
+        status: "启用",
+        updatedAt: "2026-09-21 10:20"
+      }
+    ],
+
+    routingStrategies: [
+      {
+        id: "ROUTE-001",
+        name: "产线多任务动态路由",
+        code: "RT-PROD-003",
+        input: "多模态",
+        topK: 2,
+        temperature: 0.7,
+        threshold: 0.2,
+        fallback: "工业通用专家",
+        owner: "高训",
+        status: "启用",
+        updatedAt: "2026-09-20 19:12"
+      },
+      {
+        id: "ROUTE-002",
+        name: "质检细粒度路由",
+        code: "RT-QC-011",
+        input: "图像+文本",
+        topK: 2,
+        temperature: 0.55,
+        threshold: 0.28,
+        fallback: "质量检测专家",
+        owner: "李研",
+        status: "启用",
+        updatedAt: "2026-09-19 16:34"
+      }
+    ],
+
+    performanceEvals: [
+      {
+        id: "PE-001",
+        name: "首 Token 时延专项测试",
+        code: "EV-LAT-041",
+        model: "IM-Foundation-10B v2.1.0",
+        backend: "国产算力 A",
+        concurrency: 16,
+        latency: 438,
+        qps: 18.7,
+        errorRate: 0.06,
+        status: "通过",
+        updatedAt: "2026-09-20 17:42"
+      },
+      {
+        id: "PE-002",
+        name: "CUDA 高并发推理测试",
+        code: "EV-LAT-039",
+        model: "IM-Foundation-10B v2.1.0",
+        backend: "CUDA",
+        concurrency: 32,
+        latency: 402,
+        qps: 24.3,
+        errorRate: 0.03,
+        status: "通过",
+        updatedAt: "2026-09-19 15:20"
+      }
+    ],
+
+    contextEvals: [
+      {
+        id: "CTX-001",
+        name: "64K 工业文档长上下文压力测试",
+        code: "EV-CTX-026",
+        model: "IM-Foundation-10B v2.1.0",
+        contextLength: "64K",
+        dataset: "工艺规程与设备日志长文本集 v1.2",
+        accuracy: 92.8,
+        latency: 1860,
+        status: "通过",
+        updatedAt: "2026-09-20 16:10"
+      }
+    ],
+
+    acceptanceIndicators: [
+      {
+        id: "KPI-001",
+        name: "模型参数规模",
+        code: "KPI-MODEL-10B",
+        target: "不少于 10B",
+        actual: "10B",
+        evidence: "基座模型登记与加载报告",
+        reviewer: "项目负责人",
+        status: "已达标",
+        updatedAt: "2026-09-20 18:20"
+      },
+      {
+        id: "KPI-002",
+        name: "首 Token 时延",
+        code: "KPI-TTFT-500",
+        target: "不高于 500ms",
+        actual: "438ms",
+        evidence: "EV-LAT-041 性能评测报告",
+        reviewer: "第三方测评机构",
+        status: "已达标",
+        updatedAt: "2026-09-20 17:42"
+      },
+      {
+        id: "KPI-003",
+        name: "上下文 Token 长度",
+        code: "KPI-CONTEXT-64K",
+        target: "不少于 64K",
+        actual: "64K",
+        evidence: "EV-CTX-026 长上下文测试",
+        reviewer: "项目负责人",
+        status: "已达标",
+        updatedAt: "2026-09-20 16:10"
+      },
+      {
+        id: "KPI-004",
+        name: "国产算力生态适配",
+        code: "KPI-DOMESTIC-01",
+        target: "CUDA + 至少一种国产生态",
+        actual: "CUDA + 国产算力 A",
+        evidence: "兼容矩阵 CM-202609-02",
+        reviewer: "项目负责人",
+        status: "已达标",
+        updatedAt: "2026-09-18 14:35"
+      },
+      {
+        id: "KPI-005",
+        name: "云平台部署运行",
+        code: "KPI-CLOUD-01",
+        target: "支持云端部署和运行",
+        actual: "生产端点运行中",
+        evidence: "DEP-PROD-021 部署记录",
+        reviewer: "项目负责人",
+        status: "已达标",
+        updatedAt: "2026-09-21 09:31"
+      }
+    ],
+
+    deployments: [
+      {
+        id: "DEPLOY-001",
+        name: "产线通用模型生产部署",
+        code: "DEP-PROD-021",
+        model: "IM-Foundation-10B v2.1.0",
+        adapters: "质量检测 + 设备健康 + 工艺优化",
+        backend: "CUDA",
+        environment: "生产",
+        replicas: 4,
+        port: "8443",
+        progress: 100,
+        owner: "高训",
+        status: "运行中",
+        updatedAt: "2026-09-21 09:31"
+      },
+      {
+        id: "DEPLOY-002",
+        name: "国产算力兼容验证部署",
+        code: "DEP-TEST-018",
+        model: "IM-Foundation-10B v2.1.0",
+        adapters: "Equipment-Health-Adapter v1.6.0",
+        backend: "国产算力 A",
+        environment: "测试",
+        replicas: 2,
+        port: "9080",
+        progress: 100,
+        owner: "王工",
+        status: "运行中",
+        updatedAt: "2026-09-20 11:18"
+      }
+    ],
+
+    users: [
+      {
+        id: "USER-001",
+        name: "高训",
+        code: "USR-GX-001",
+        email: "gao.xun@example.cn",
+        organization: "山东省计算中心",
+        project: "工业产线大模型",
+        role: "训练管理员",
+        lastLogin: "2026-09-21 10:24",
+        status: "正常",
+        updatedAt: "2026-09-21 10:24"
+      },
+      {
+        id: "USER-002",
+        name: "李研",
+        code: "USR-LY-002",
+        email: "li.yan@example.cn",
+        organization: "山东省计算中心",
+        project: "工业产线大模型",
+        role: "模型工程师",
+        lastLogin: "2026-09-21 09:48",
+        status: "正常",
+        updatedAt: "2026-09-21 09:48"
+      },
+      {
+        id: "USER-003",
+        name: "王工",
+        code: "USR-WG-003",
+        email: "wang.gong@example.cn",
+        organization: "山东省计算中心",
+        project: "异构算力适配",
+        role: "模型工程师",
+        lastLogin: "2026-09-20 18:12",
+        status: "正常",
+        updatedAt: "2026-09-20 18:12"
+      }
+    ],
+
+    roles: [
+      {
+        id: "ROLE-001",
+        name: "训练管理员",
+        code: "ROLE-TRAIN-ADMIN",
+        scope: "全部训练与算力资源",
+        permissions: "数据只读、模型管理、训练管理、资源调度",
+        users: 3,
+        highRisk: true,
+        status: "启用",
+        updatedAt: "2026-09-18 09:00"
+      },
+      {
+        id: "ROLE-002",
+        name: "模型工程师",
+        code: "ROLE-MODEL-ENG",
+        scope: "分配的项目资源",
+        permissions: "数据、模型、训练、评测",
+        users: 6,
+        highRisk: false,
+        status: "启用",
+        updatedAt: "2026-09-18 09:00"
+      }
+    ],
+
+    audits: [
+      {
+        id: "AUDIT-001",
+        name: "发布模型版本",
+        code: "AUD-20260921-001",
+        operator: "高训",
+        action: "发布",
+        object: "Equipment-Health-Adapter v1.6.0",
+        risk: "重要",
+        status: "成功",
+        description: "评测通过后发布为可部署版本。",
+        updatedAt: "2026-09-21 10:18"
+      },
+      {
+        id: "AUDIT-002",
+        name: "调整服务副本",
+        code: "AUD-20260921-002",
+        operator: "系统管理员",
+        action: "修改",
+        object: "production-general 2→4",
+        risk: "重要",
+        status: "成功",
+        description: "自动扩缩容规则触发。",
+        updatedAt: "2026-09-21 09:31"
+      }
+    ],
+
+    apiKeys: [
+      {
+        id: "KEY-001",
+        name: "产线应用推理密钥",
+        code: "API-PROD-001",
+        token: "imsk_prod_••••••••••••a7f2",
+        rawToken: "",
+        scope: "部署与推理",
+        expiresAt: "2027-09-21",
+        calls: 18426,
+        owner: "高训",
+        status: "启用",
+        updatedAt: "2026-09-20 12:00"
+      }
+    ]
+  };
+
+  const buildGeneratedRecord = (submodule, index) => {
+    const record = {
+      id: makeId(submodule.key.slice(0, 5).toUpperCase()),
+      updatedAt: `2026-09-${String(20 - index).padStart(2, "0")} ${index ? "14:20" : "09:30"}`
+    };
+
+    submodule.fields.forEach((field) => {
+      if (field.key === "name") {
+        record[field.key] = `${submodule.title}示例 ${index + 1}`;
+      } else if (field.key === "code") {
+        record[field.key] = `${submodule.key.replaceAll(/[^a-zA-Z0-9]/g, "").slice(0, 6).toUpperCase()}-${String(index + 1).padStart(3, "0")}`;
+      } else if (field.type === "select") {
+        record[field.key] = field.options[index % field.options.length];
+      } else if (field.type === "number") {
+        if (field.key.toLowerCase().includes("progress")) {
+          record[field.key] = index ? 100 : 68;
+        } else if (field.key.toLowerCase().includes("rate") || field.key.toLowerCase().includes("score") || field.key.toLowerCase().includes("accuracy")) {
+          record[field.key] = index ? 96.4 : 98.2;
+        } else if (field.key.toLowerCase().includes("latency") || field.key.toLowerCase().includes("ms")) {
+          record[field.key] = index ? 472 : 386;
+        } else {
+          record[field.key] = Math.max(field.min ?? 0, index + 1);
+        }
+      } else if (field.type === "checkbox") {
+        record[field.key] = index === 0;
+      } else if (field.key === "description") {
+        record[field.key] = `${submodule.title}的示例业务记录，可进行编辑、复制、状态调整和删除。`;
+      } else if (field.key === "version") {
+        record[field.key] = `v1.${index + 1}.0`;
+      } else if (field.key === "owner") {
+        record[field.key] = index ? "李研" : "高训";
+      } else {
+        record[field.key] = index ? "示例配置 B" : "示例配置 A";
+      }
+    });
+
+    return record;
+  };
+
+  const buildDefaultState = () => {
+    const collections = {};
+
+    MODULES.forEach((module) => {
+      module.subs.forEach((submodule) => {
+        if (!submodule.collection || submodule.collection === "settings") {
+          return;
+        }
+
+        if (collections[submodule.collection]) {
+          return;
+        }
+
+        collections[submodule.collection] = seedOverrides[submodule.collection]
+          ? deepClone(seedOverrides[submodule.collection])
+          : [
+              buildGeneratedRecord(submodule, 0),
+              buildGeneratedRecord(submodule, 1)
+            ];
+      });
+    });
+
+    return {
+      collections,
+      settings: {
+        systemName: APP_NAME,
+        organization: "山东省计算中心（国家超级计算济南中心）",
+        timezone: "Asia/Shanghai",
+        timeFormat: "YYYY-MM-DD HH:mm:ss",
+        defaultTrainingQueue: "重点任务",
+        defaultEvaluationBackend: "CUDA",
+        defaultDeploymentEnvironment: "测试",
+        modelRetentionDays: 365,
+        logRetentionDays: 180,
+        checkpointRetentionDays: 30,
+        reportRetentionDays: 730,
+        enableAudit: true,
+        enableDangerConfirm: true,
+        updatedAt: nowText()
+      },
+      meta: {
+        createdAt: nowText(),
+        updatedAt: nowText(),
+        version: "1.0"
+      }
+    };
+  };
+
+  const mergeWithDefaults = (savedState) => {
+    const defaults = buildDefaultState();
+    const merged = {
+      ...defaults,
+      ...savedState,
+      collections: {
+        ...defaults.collections,
+        ...(savedState?.collections || {})
+      },
+      settings: {
+        ...defaults.settings,
+        ...(savedState?.settings || {})
+      },
+      meta: {
+        ...defaults.meta,
+        ...(savedState?.meta || {})
+      }
+    };
+
+    return merged;
+  };
+
+  const loadState = () => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        return buildDefaultState();
+      }
+      return mergeWithDefaults(JSON.parse(raw));
+    } catch (error) {
+      console.warn("本地数据读取失败，已恢复默认数据。", error);
+      return buildDefaultState();
+    }
+  };
+
+  const saveState = () => {
+    state.meta.updatedAt = nowText();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  };
+
+  const loadUiState = () => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(UI_STORAGE_KEY) || "{}");
+      return {
+        moduleKey: saved.moduleKey || "overview",
+        subKey: saved.subKey || "overviewMetrics",
+        query: "",
+        statusFilter: "全部状态",
+        sortKey: "updatedAt",
+        sortDirection: "desc",
+        page: 1,
+        modalMode: "create",
+        editingId: null,
+        activeCollection: null,
+        detailId: null,
+        ...saved,
+        query: "",
+        statusFilter: "全部状态",
+        page: 1,
+        modalMode: "create",
+        editingId: null,
+        activeCollection: null,
+        detailId: null
+      };
+    } catch (error) {
+      return {
+        moduleKey: "overview",
+        subKey: "overviewMetrics",
+        query: "",
+        statusFilter: "全部状态",
+        sortKey: "updatedAt",
+        sortDirection: "desc",
+        page: 1,
+        modalMode: "create",
+        editingId: null,
+        activeCollection: null,
+        detailId: null
+      };
+    }
+  };
+
+  const saveUiState = () => {
+    localStorage.setItem(UI_STORAGE_KEY, JSON.stringify({
+      moduleKey: ui.moduleKey,
+      subKey: ui.subKey
+    }));
+  };
+
+  let state = loadState();
+  let ui = loadUiState();
+  let toastTimer = null;
+  let inferenceTimer = null;
+
+  const dom = {
+    nav: document.getElementById("nav"),
+    main: document.getElementById("main"),
+    sidebar: document.getElementById("sidebar"),
+    modalBackdrop: document.getElementById("modal"),
+    modal: document.querySelector("#modal .modal"),
+    modalTitle: document.getElementById("modalTitle"),
+    modalForm: document.getElementById("modalForm"),
+    modalSubmit: document.getElementById("submit"),
+    modalCancel: document.getElementById("cancel"),
+    modalClose: document.getElementById("close"),
+    toast: document.getElementById("toast"),
+    menu: document.getElementById("menu"),
+    refresh: document.getElementById("refresh")
+  };
+
+  /* ================================================================
+   *  页面渲染与格式化
+   * ================================================================ */
+
+  const getModule = (moduleKey = ui.moduleKey) => (
+    MODULES.find((module) => module.key === moduleKey) || MODULES[0]
+  );
+
+  const getSubmodule = (module = getModule(), subKey = ui.subKey) => (
+    module.subs.find((submodule) => submodule.key === subKey) || module.subs[0]
+  );
+
+  const getRecords = (submodule = getSubmodule()) => {
+    if (!submodule.collection || submodule.collection === "settings") {
+      return [];
+    }
+    if (!state.collections[submodule.collection]) {
+      state.collections[submodule.collection] = [];
+    }
+    return state.collections[submodule.collection];
+  };
+
+  const statusClass = (value) => {
+    const text = String(value ?? "");
+    if (/运行|在线|可用|启用|通过|完成|成功|正常|活动|已达标|可恢复|已生成|已固化|已记录|已关闭|已复核|完整|生效|可部署/.test(text)) {
+      return "ok running";
+    }
+    if (/失败|异常|不通过|不兼容|离线|严重|紧急|错误|校验失败|未达标|锁定/.test(text)) {
+      return "bad failed";
+    }
+    if (/等待|暂停|草稿|检查|评测|测试|复核|灰度|提醒|警告|待|维护|调度|转换|迁移|部署|发布|处理中|组织中|标注中/.test(text)) {
+      return "wait pending";
+    }
+    return "paused";
+  };
+
+  const statusHtml = (value) => (
+    `<span class="status ${statusClass(value)}">${escapeHtml(value || "未设置")}</span>`
+  );
+
+  const tagHtml = (value, tone = "") => (
+    `<span class="tag ${tone}">${escapeHtml(value || "-")}</span>`
+  );
+
+  const progressHtml = (value) => {
+    const number = Math.max(0, Math.min(100, Number(value) || 0));
+    const tone = number >= 100 ? "green" : number < 25 ? "amber" : "";
+    return `
+      <div class="progress-line" title="${number}%">
+        <div class="bar ${tone}"><i style="width:${number}%"></i></div>
+        <span>${number}%</span>
+      </div>
+    `;
+  };
+
+  const formatCell = (record, columnConfig) => {
+    const value = record[columnConfig.key];
+
+    switch (columnConfig.format) {
+      case "name":
+        return `
+          <span class="name">
+            <b>${escapeHtml(value || "未命名")}</b>
+            <small>${escapeHtml(record.code || record.id || "")}</small>
+          </span>
+        `;
+      case "user":
+        return `
+          <span class="name">
+            <b>${escapeHtml(value || "-")}</b>
+            <small>${escapeHtml(record.email || record.code || "")}</small>
+          </span>
+        `;
+      case "tag":
+        return tagHtml(value, "blue");
+      case "status":
+        return statusHtml(value);
+      case "progress":
+        return progressHtml(value);
+      case "percent":
+        return `${escapeHtml(value ?? "-")}${value === "" || value === null || value === undefined ? "" : "%"}`;
+      case "score": {
+        const score = Number(value);
+        const tone = Number.isFinite(score) && score >= 90 ? "green" : Number.isFinite(score) && score < 60 ? "amber" : "blue";
+        return tagHtml(value ?? "-", tone);
+      }
+      case "latency":
+        return `${escapeHtml(value ?? "-")}${value === "" || value === null || value === undefined ? "" : " ms"}`;
+      case "temperature":
+        return `${escapeHtml(value ?? "-")}${value === "" || value === null || value === undefined ? "" : " ℃"}`;
+      case "memory":
+        return `${escapeHtml(value ?? "-")}${typeof value === "number" ? " GB" : ""}`;
+      case "boolean":
+        return value ? tagHtml("是", "green") : tagHtml("否");
+      case "secret":
+        return `<span class="api-key" title="${escapeHtml(value || "")}">${escapeHtml(value || "未生成")}</span>`;
+      case "level": {
+        const tone = /严重|紧急|ERROR|高风险/.test(value) ? "amber" : /信息|正常|INFO/.test(value) ? "green" : "blue";
+        return tagHtml(value, tone);
+      }
+      case "code":
+        return `<code>${escapeHtml(value || "-")}</code>`;
+      default:
+        return escapeHtml(value ?? "-");
+    }
+  };
+
+  const renderNavigation = () => {
+    dom.nav.innerHTML = MODULES.map((module) => `
+      <button
+        class="navbtn ${module.key === ui.moduleKey ? "active" : ""}"
+        data-action="switch-module"
+        data-module="${module.key}"
+        type="button"
+      >
+        <span class="num">${module.number}</span>
+        <span>${escapeHtml(module.title)}</span>
+        <span class="dot"></span>
+      </button>
+    `).join("");
+  };
+
+  const renderPageHeader = (module, submodule) => {
+    const createLabel = submodule.action || `新建${submodule.title}`;
+    const isSettings = submodule.view === "settings";
+    return `
+      <div class="head">
+        <div>
+          <h2>${escapeHtml(module.title)}</h2>
+          <p>${escapeHtml(module.description)}</p>
+        </div>
+        <div class="actions">
+          <button class="btn" type="button" data-action="export-module">导出模块数据</button>
+          <button class="btn" type="button" data-action="export-report">导出说明报告</button>
+          <button class="btn primary" type="button" data-action="${isSettings ? "save-settings" : "create"}">
+            ${isSettings ? "保存系统设置" : `＋ ${escapeHtml(createLabel)}`}
+          </button>
+        </div>
+      </div>
+    `;
+  };
+
+  const renderSubNavigation = (module, activeSubmodule) => `
+    <div class="subnav" role="tablist" aria-label="${escapeHtml(module.title)}子模块">
+      ${module.subs.map((submodule, index) => `
+        <button
+          class="${submodule.key === activeSubmodule.key ? "active" : ""}"
+          type="button"
+          role="tab"
+          aria-selected="${submodule.key === activeSubmodule.key}"
+          data-action="switch-submodule"
+          data-submodule="${submodule.key}"
+        >
+          ${module.number}.${index + 1} ${escapeHtml(submodule.title)}
+        </button>
+      `).join("")}
+    </div>
+  `;
+
+  const renderSubmoduleHeading = (submodule) => `
+    <div class="section-head">
+      <div>
+        <h3>${escapeHtml(submodule.title)}</h3>
+        <p>${escapeHtml(submodule.description)}</p>
+      </div>
+      <span class="record-count">最近更新：${escapeHtml(state.meta.updatedAt)}</span>
+    </div>
+  `;
+
+  const getFilteredRecords = (submodule) => {
+    const query = ui.query.trim().toLowerCase();
+    let records = [...getRecords(submodule)];
+
+    if (query) {
+      records = records.filter((record) => Object.values(record).some((value) => (
+        String(value ?? "").toLowerCase().includes(query)
+      )));
+    }
+
+    if (ui.statusFilter !== "全部状态") {
+      records = records.filter((record) => String(record.status) === ui.statusFilter);
+    }
+
+    const { sortKey, sortDirection } = ui;
+    records.sort((left, right) => {
+      const leftValue = left[sortKey] ?? "";
+      const rightValue = right[sortKey] ?? "";
+      const leftNumber = Number(leftValue);
+      const rightNumber = Number(rightValue);
+      let result;
+
+      if (Number.isFinite(leftNumber) && Number.isFinite(rightNumber) && leftValue !== "" && rightValue !== "") {
+        result = leftNumber - rightNumber;
+      } else {
+        result = String(leftValue).localeCompare(String(rightValue), "zh-CN", { numeric: true });
+      }
+
+      return sortDirection === "asc" ? result : -result;
+    });
+
+    return records;
+  };
+
+  const getStatusOptions = (submodule) => {
+    const field = submodule.fields.find((item) => item.key === "status");
+    const configured = field?.options || [];
+    const actual = getRecords(submodule).map((record) => record.status).filter(Boolean);
+    return [...new Set(["全部状态", ...configured, ...actual])];
+  };
+
+  const renderToolbar = (submodule) => `
+    <div class="toolbar">
+      <div class="searchbox">
+        <input
+          class="input"
+          id="recordSearch"
+          type="search"
+          value="${escapeHtml(ui.query)}"
+          placeholder="搜索名称、编号或任意字段"
+          autocomplete="off"
+        >
+      </div>
+      <select class="input" id="statusFilter" aria-label="状态筛选">
+        ${getStatusOptions(submodule).map((option) => `
+          <option value="${escapeHtml(option)}" ${option === ui.statusFilter ? "selected" : ""}>${escapeHtml(option)}</option>
+        `).join("")}
+      </select>
+      <button class="btn small" type="button" data-action="clear-filter">清除筛选</button>
+      <span class="toolbar-spacer"></span>
+      ${submodule.allowImport ? `<button class="btn small" type="button" data-action="import">导入文件</button>` : ""}
+      <button class="btn small" type="button" data-action="export-csv">导出 CSV</button>
+      <button class="btn small primary" type="button" data-action="create">＋ ${escapeHtml(submodule.action)}</button>
+    </div>
+  `;
+
+  const renderRowActions = (record, submodule) => `
+    <div class="row-actions">
+      <button class="linkbtn" type="button" data-action="view" data-id="${escapeHtml(record.id)}">查看</button>
+      <button class="linkbtn" type="button" data-action="edit" data-id="${escapeHtml(record.id)}">编辑</button>
+      ${submodule.allowRun ? `<button class="linkbtn" type="button" data-action="run-toggle" data-id="${escapeHtml(record.id)}">${/运行|进行|测试中|部署中|转换中|发布中|回放中|检查中|评测中/.test(record.status) ? "暂停" : "启动"}</button>` : ""}
+      ${submodule.collection === "apiKeys" ? `<button class="linkbtn" type="button" data-action="copy-key" data-id="${escapeHtml(record.id)}">复制</button>` : ""}
+      <button class="linkbtn" type="button" data-action="duplicate" data-id="${escapeHtml(record.id)}">复制记录</button>
+      <button class="linkbtn delete" type="button" data-action="delete" data-id="${escapeHtml(record.id)}">删除</button>
+    </div>
+  `;
+
+  const renderPager = (total, pageCount) => {
+    const currentPage = Math.min(ui.page, Math.max(pageCount, 1));
+    const start = total ? (currentPage - 1) * PAGE_SIZE + 1 : 0;
+    const end = Math.min(currentPage * PAGE_SIZE, total);
+
+    return `
+      <div class="pager">
+        <span>共 ${total} 条，当前显示 ${start}-${end} 条</span>
+        <div class="pager-controls">
+          <button class="pagebtn" type="button" data-action="page" data-page="${currentPage - 1}" ${currentPage <= 1 ? "disabled" : ""}>‹</button>
+          ${Array.from({ length: pageCount }, (_, index) => index + 1).slice(0, 7).map((page) => `
+            <button class="pagebtn ${page === currentPage ? "active" : ""}" type="button" data-action="page" data-page="${page}">${page}</button>
+          `).join("")}
+          <button class="pagebtn" type="button" data-action="page" data-page="${currentPage + 1}" ${currentPage >= pageCount ? "disabled" : ""}>›</button>
+        </div>
+      </div>
+    `;
+  };
+
+  const renderEmpty = (submodule) => `
+    <div class="empty">
+      <div>
+        <div class="empty-mark">∅</div>
+        <h4>没有符合条件的记录</h4>
+        <p>可以清除筛选条件，或新建一条${escapeHtml(submodule.title)}记录。</p>
+        <button class="btn primary" type="button" data-action="create">＋ ${escapeHtml(submodule.action)}</button>
+      </div>
+    </div>
+  `;
+
+  const renderTable = (submodule) => {
+    const records = getFilteredRecords(submodule);
+    const pageCount = Math.max(1, Math.ceil(records.length / PAGE_SIZE));
+    if (ui.page > pageCount) {
+      ui.page = pageCount;
+    }
+    const pageRecords = records.slice((ui.page - 1) * PAGE_SIZE, ui.page * PAGE_SIZE);
+
+    return `
+      <article class="card">
+        ${renderToolbar(submodule)}
+        ${records.length ? `
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  ${submodule.columns.map((columnConfig) => `
+                    <th
+                      class="${columnConfig.sortable ? "sortable" : ""} ${ui.sortKey === columnConfig.key ? ui.sortDirection : ""}"
+                      ${columnConfig.sortable ? `data-action="sort" data-sort="${columnConfig.key}"` : ""}
+                    >${escapeHtml(columnConfig.label)}</th>
+                  `).join("")}
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${pageRecords.map((record) => `
+                  <tr>
+                    ${submodule.columns.map((columnConfig) => `<td>${formatCell(record, columnConfig)}</td>`).join("")}
+                    <td>${renderRowActions(record, submodule)}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+          ${renderPager(records.length, pageCount)}
+        ` : renderEmpty(submodule)}
+      </article>
+    `;
+  };
+
+  const renderKpis = (items) => `
+    <div class="grid kpis">
+      ${items.map((item) => `
+        <div class="card kpi">
+          <label>${escapeHtml(item.label)}</label>
+          <span class="value">${escapeHtml(item.value)}<small>${escapeHtml(item.unit || "")}</small></span>
+          <span class="hint">${escapeHtml(item.hint || "")}</span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  const average = (values) => {
+    const numbers = values.map(Number).filter(Number.isFinite);
+    if (!numbers.length) {
+      return 0;
+    }
+    return numbers.reduce((sum, number) => sum + number, 0) / numbers.length;
+  };
+
+  const renderMetricChart = () => `
+    <article class="card">
+      <div class="cardhead">
+        <h3><span class="live-dot"></span>训练与推理运行趋势</h3>
+        <span>近 12 小时</span>
+      </div>
+      <div class="chart">
+        <svg viewBox="0 0 760 210" role="img" aria-label="训练吞吐与推理请求趋势图">
+          <line class="gridline" x1="45" y1="25" x2="45" y2="175"></line>
+          <line class="gridline" x1="45" y1="175" x2="740" y2="175"></line>
+          <line class="gridline" x1="45" y1="125" x2="740" y2="125"></line>
+          <line class="gridline" x1="45" y1="75" x2="740" y2="75"></line>
+          <polyline class="line" points="45,147 105,139 165,143 225,118 285,126 345,104 405,96 465,107 525,79 585,84 645,63 705,58"></polyline>
+          <polyline fill="none" stroke="#1596ae" stroke-width="2.4" points="45,160 105,154 165,137 225,142 285,116 345,121 405,98 465,91 525,104 585,73 645,81 705,67"></polyline>
+          <text x="14" y="29">100</text>
+          <text x="23" y="79">70</text>
+          <text x="23" y="129">40</text>
+          <text x="30" y="179">0</text>
+          <text x="45" y="199">00:00</text>
+          <text x="210" y="199">03:00</text>
+          <text x="375" y="199">06:00</text>
+          <text x="540" y="199">09:00</text>
+          <text x="685" y="199">12:00</text>
+        </svg>
+        <div class="chart-legend">
+          <span><i class="legend-dot" style="background:#2463a1"></i>训练吞吐</span>
+          <span><i class="legend-dot" style="background:#1596ae"></i>推理请求</span>
+        </div>
+      </div>
+    </article>
+  `;
+
+  const renderDashboard = (submodule) => {
+    const modelCount = (state.collections.baseModels?.length || 0)
+      + (state.collections.adapters?.length || 0)
+      + (state.collections.fineModels?.length || 0);
+    const jobs = state.collections.trainingJobs || [];
+    const runningJobs = jobs.filter((record) => record.status === "运行中").length;
+    const nodes = state.collections.nodes || [];
+    const onlineNodes = nodes.filter((record) => record.status === "在线").length;
+    const endpoints = state.collections.endpoints || [];
+    const latency = Math.round(average(endpoints.filter((record) => record.status === "运行中").map((record) => record.latency)));
+    const eventList = state.collections.events || [];
+
+    return `
+      ${renderKpis([
+        { label: "模型与适配器", value: modelCount, unit: "个", hint: "统一资产登记" },
+        { label: "运行中训练", value: runningJobs, unit: "个", hint: `${jobs.filter((record) => record.status === "等待中").length} 个等待` },
+        { label: "在线算力节点", value: onlineNodes, unit: "台", hint: `共 ${nodes.length} 台节点` },
+        { label: "平均首 Token 时延", value: latency || "-", unit: latency ? "ms" : "", hint: latency && latency <= 500 ? "达到 ≤500ms" : "待继续优化" }
+      ])}
+      <div class="grid cols" style="margin-bottom:15px">
+        ${renderMetricChart()}
+        <article class="card">
+          <div class="cardhead">
+            <h3>最近运行事件</h3>
+            <span>${eventList.length} 条</span>
+          </div>
+          <div class="body">
+            <ol class="timeline">
+              ${eventList.slice(0, 5).map((event) => `
+                <li>
+                  <b>${escapeHtml(event.name)}</b>
+                  <div>${escapeHtml(event.description || "")}</div>
+                  <time>${escapeHtml(event.updatedAt)} · ${escapeHtml(event.owner || "系统")}</time>
+                </li>
+              `).join("")}
+            </ol>
+          </div>
+        </article>
+      </div>
+      ${renderTable(submodule)}
+    `;
+  };
+
+  const renderJobSummary = (submodule) => {
+    const records = getRecords(submodule);
+    const running = records.filter((record) => /运行|进行|部署中|转换中|发布中|测试中|评测中/.test(record.status)).length;
+    const pending = records.filter((record) => /等待|草稿|待/.test(record.status)).length;
+    const completed = records.filter((record) => /完成|通过|成功/.test(record.status)).length;
+    const averageProgress = Math.round(average(records.map((record) => record.progress || 0)));
+    return `
+      ${renderKpis([
+        { label: "任务总数", value: records.length, unit: "个", hint: "本地持久化" },
+        { label: "运行中", value: running, unit: "个", hint: "支持暂停与恢复" },
+        { label: "等待/草稿", value: pending, unit: "个", hint: "等待资源调度" },
+        { label: "平均进度", value: averageProgress, unit: "%", hint: `${completed} 个已完成` }
+      ])}
+      ${renderTable(submodule)}
+    `;
+  };
+
+  const renderResourceCards = (submodule) => {
+    const records = getFilteredRecords(submodule);
+    return `
+      <div class="cards" style="margin-bottom:15px">
+        ${records.slice(0, 6).map((record) => `
+          <article class="card asset">
+            <div class="assettop">
+              <span class="symbol">${escapeHtml(String(record.type || record.gpuModel || record.accelerator || "CPU").slice(0, 2).toUpperCase())}</span>
+              ${statusHtml(record.status)}
+            </div>
+            <h3>${escapeHtml(record.name || "未命名资源")}</h3>
+            <p>${escapeHtml(record.ip || record.runtime || record.resource || record.description || "异构算力资源")}</p>
+            <div class="facts">
+              <div><small>资源规格</small><b>${escapeHtml(record.resource || record.gpuModel || record.accelerator || `${record.cores || "-"} 核`)}</b></div>
+              <div><small>利用率</small><b>${escapeHtml(record.utilization ?? "-")}%</b></div>
+              <div><small>用途/卡数</small><b>${escapeHtml(record.purpose || record.cards || "-")}</b></div>
+              <div><small>最后心跳</small><b>${escapeHtml(record.updatedAt || "-")}</b></div>
+            </div>
+          </article>
+        `).join("")}
+      </div>
+      ${renderTable(submodule)}
+    `;
+  };
+
+  const renderModelCards = (submodule) => {
+    const records = getFilteredRecords(submodule);
+    return `
+      <div class="cards" style="margin-bottom:15px">
+        ${records.slice(0, 6).map((record) => `
+          <article class="card asset">
+            <div class="assettop">
+              <span class="symbol">${escapeHtml(record.parameters || record.type || "AI")}</span>
+              ${statusHtml(record.status)}
+            </div>
+            <h3>${escapeHtml(record.name)}</h3>
+            <p>${escapeHtml(record.description || record.architecture || record.baseModel || "工业制造模型资产")}</p>
+            <div class="facts">
+              <div><small>版本/类型</small><b>${escapeHtml(record.version || record.type || "-")}</b></div>
+              <div><small>参数/Rank</small><b>${escapeHtml(record.parameters || record.rank || "-")}</b></div>
+              <div><small>上下文/基座</small><b>${escapeHtml(record.context || record.baseModel || "-")}</b></div>
+              <div><small>负责人</small><b>${escapeHtml(record.owner || "-")}</b></div>
+            </div>
+          </article>
+        `).join("")}
+      </div>
+      ${renderTable(submodule)}
+    `;
+  };
+
+  const renderImportPanel = (submodule) => `
+    <article class="card" style="margin-bottom:15px">
+      <div class="cardhead">
+        <h3>快速数据接入</h3>
+        <span>JSON / CSV / JSONL</span>
+      </div>
+      <div class="body">
+        <div class="dropzone" id="dropzone">
+          <strong>将数据文件拖放到此处</strong>
+          <p>文件将在浏览器中读取并登记为新的导入任务，不会上传至外部网络。</p>
+          <button class="btn primary" type="button" data-action="import">选择文件</button>
+        </div>
+      </div>
+    </article>
+    ${renderJobSummary(submodule)}
+  `;
+
+  const renderMonitor = (submodule) => `
+    <div class="grid cols" style="margin-bottom:15px">
+      ${renderMetricChart()}
+      <article class="card">
+        <div class="cardhead"><h3>实时资源摘要</h3><span>5 秒更新</span></div>
+        <div class="body">
+          <div class="resource"><div class="rtitle"><b>GPU 平均利用率</b><span>74%</span></div><div class="bar"><i style="width:74%"></i></div></div>
+          <div class="resource"><div class="rtitle"><b>CPU 内存卸载池</b><span>61%</span></div><div class="bar green"><i style="width:61%"></i></div></div>
+          <div class="resource"><div class="rtitle"><b>推理缓存命中率</b><span>87%</span></div><div class="bar amber"><i style="width:87%"></i></div></div>
+          <p class="muted"><span class="live-dot"></span>监控采集服务运行正常</p>
+        </div>
+      </article>
+    </div>
+    ${renderTable(submodule)}
+  `;
+
+  const renderInference = (submodule) => `
+    <div class="split-layout">
+      <div>${renderTable(submodule)}</div>
+      <article class="card">
+        <div class="cardhead">
+          <h3>在线推理测试</h3>
+          <span>本地模拟接口</span>
+        </div>
+        <div class="body">
+          <div class="field">
+            <label for="inferenceEndpoint">推理端点</label>
+            <select class="input" id="inferenceEndpoint" style="width:100%">
+              ${getRecords(submodule).map((record) => `<option value="${escapeHtml(record.id)}">${escapeHtml(record.name)} · ${escapeHtml(record.path)}</option>`).join("")}
+            </select>
+          </div>
+          <div class="field" style="margin-top:11px">
+            <label for="inferencePrompt">工业任务输入</label>
+            <textarea class="test" id="inferencePrompt">请根据当前振动趋势和设备日志，分析发泡工位异常原因并给出处置建议。</textarea>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:9px">
+            <button class="btn" type="button" data-action="clear-inference">清空</button>
+            <button class="btn primary" type="button" data-action="infer">发送测试</button>
+          </div>
+          <div class="output" id="inferenceResult">等待发送测试请求。</div>
+        </div>
+      </article>
+    </div>
+  `;
+
+  const renderSettings = () => {
+    const settings = state.settings;
+    return `
+      <article class="card">
+        <div class="cardhead">
+          <h3>全局系统配置</h3>
+          <span>保存后立即写入本地配置</span>
+        </div>
+        <form class="system-form" id="systemSettingsForm">
+          <div class="field full">
+            <label class="required" for="settingSystemName">系统名称</label>
+            <input id="settingSystemName" name="systemName" value="${escapeHtml(settings.systemName)}" required>
+          </div>
+          <div class="field full">
+            <label class="required" for="settingOrganization">建设单位</label>
+            <input id="settingOrganization" name="organization" value="${escapeHtml(settings.organization)}" required>
+          </div>
+          <div class="field">
+            <label for="settingTimezone">时区</label>
+            <select id="settingTimezone" name="timezone">
+              ${["Asia/Shanghai", "UTC", "Asia/Hong_Kong"].map((option) => `<option ${option === settings.timezone ? "selected" : ""}>${option}</option>`).join("")}
+            </select>
+          </div>
+          <div class="field">
+            <label for="settingTimeFormat">时间格式</label>
+            <select id="settingTimeFormat" name="timeFormat">
+              ${["YYYY-MM-DD HH:mm:ss", "YYYY/MM/DD HH:mm:ss", "YYYY年MM月DD日 HH:mm"].map((option) => `<option ${option === settings.timeFormat ? "selected" : ""}>${option}</option>`).join("")}
+            </select>
+          </div>
+          <div class="field">
+            <label for="settingTrainingQueue">默认训练队列</label>
+            <select id="settingTrainingQueue" name="defaultTrainingQueue">
+              ${["重点任务", "常规微调", "兼容测试", "推理保障"].map((option) => `<option ${option === settings.defaultTrainingQueue ? "selected" : ""}>${option}</option>`).join("")}
+            </select>
+          </div>
+          <div class="field">
+            <label for="settingEvaluationBackend">默认评测后端</label>
+            <select id="settingEvaluationBackend" name="defaultEvaluationBackend">
+              ${["CUDA", "国产算力 A", "国产算力 B"].map((option) => `<option ${option === settings.defaultEvaluationBackend ? "selected" : ""}>${option}</option>`).join("")}
+            </select>
+          </div>
+          <div class="field">
+            <label for="settingDeployEnv">默认部署环境</label>
+            <select id="settingDeployEnv" name="defaultDeploymentEnvironment">
+              ${["开发", "测试", "预发布", "生产"].map((option) => `<option ${option === settings.defaultDeploymentEnvironment ? "selected" : ""}>${option}</option>`).join("")}
+            </select>
+          </div>
+          <div class="field">
+            <label for="settingModelRetention">模型保留天数</label>
+            <input id="settingModelRetention" name="modelRetentionDays" type="number" min="1" value="${escapeHtml(settings.modelRetentionDays)}">
+          </div>
+          <div class="field">
+            <label for="settingLogRetention">日志保留天数</label>
+            <input id="settingLogRetention" name="logRetentionDays" type="number" min="1" value="${escapeHtml(settings.logRetentionDays)}">
+          </div>
+          <div class="field">
+            <label for="settingCheckpointRetention">检查点保留天数</label>
+            <input id="settingCheckpointRetention" name="checkpointRetentionDays" type="number" min="1" value="${escapeHtml(settings.checkpointRetentionDays)}">
+          </div>
+          <div class="field">
+            <label for="settingReportRetention">报告保留天数</label>
+            <input id="settingReportRetention" name="reportRetentionDays" type="number" min="1" value="${escapeHtml(settings.reportRetentionDays)}">
+          </div>
+          <div class="field">
+            <label>安全控制</label>
+            <label class="checkline"><input name="enableAudit" type="checkbox" ${settings.enableAudit ? "checked" : ""}> 启用全量审计日志</label>
+          </div>
+          <div class="field">
+            <label>危险操作确认</label>
+            <label class="checkline"><input name="enableDangerConfirm" type="checkbox" ${settings.enableDangerConfirm ? "checked" : ""}> 删除、回滚前二次确认</label>
+          </div>
+          <div class="field full">
+            <span class="help">最后保存：${escapeHtml(settings.updatedAt || "尚未保存")}</span>
+          </div>
+          <div class="field full" style="display:flex;flex-direction:row;justify-content:flex-end">
+            <button class="btn" type="button" data-action="reset-settings">恢复默认配置</button>
+            <button class="btn primary" type="button" data-action="save-settings">保存系统设置</button>
+          </div>
+        </form>
+      </article>
+    `;
+  };
+
+  const renderApi = (submodule) => `
+    <div class="grid twocols" style="margin-bottom:15px">
+      <article class="card">
+        <div class="cardhead"><h3>开放接口</h3><span>RESTful API</span></div>
+        <div class="body">
+          <pre class="json-preview">POST /api/v1/training/jobs
+GET  /api/v1/training/jobs/{id}
+POST /api/v1/models/import
+GET  /api/v1/models
+POST /api/v1/deployments
+POST /api/v1/inference/generate
+POST /api/v1/inference/batch
+GET  /api/v1/metrics</pre>
+        </div>
+      </article>
+      <article class="card">
+        <div class="cardhead"><h3>请求示例</h3><span>在线推理</span></div>
+        <div class="body">
+          <pre class="json-preview">curl -X POST /api/v1/inference/generate \\
+  -H "Authorization: Bearer &lt;API_KEY&gt;" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "IM-Foundation-10B",
+    "adapter": "Equipment-Health-Adapter",
+    "stream": true,
+    "prompt": "分析设备异常原因"
+  }'</pre>
+        </div>
+      </article>
+    </div>
+    <div class="notice warning" style="margin-bottom:15px">新生成的完整密钥仅显示一次。列表中仅保存掩码，复制功能只对本次会话中仍保留原文的密钥有效。</div>
+    ${renderTable(submodule)}
+  `;
+
+  const renderSubmoduleContent = (submodule) => {
+    switch (submodule.view) {
+      case "dashboard":
+        return renderDashboard(submodule);
+      case "jobs":
+        return renderJobSummary(submodule);
+      case "resources":
+        return renderResourceCards(submodule);
+      case "models":
+        return renderModelCards(submodule);
+      case "imports":
+        return renderImportPanel(submodule);
+      case "monitor":
+        return renderMonitor(submodule);
+      case "inference":
+        return renderInference(submodule);
+      case "settings":
+        return renderSettings();
+      case "api":
+        return renderApi(submodule);
+      default:
+        return renderTable(submodule);
+    }
+  };
+
+  const render = () => {
+    const module = getModule();
+    if (module.key !== ui.moduleKey) {
+      ui.moduleKey = module.key;
+    }
+
+    const submodule = getSubmodule(module);
+    if (submodule.key !== ui.subKey) {
+      ui.subKey = submodule.key;
+    }
+
+    renderNavigation();
+    dom.main.innerHTML = [
+      renderPageHeader(module, submodule),
+      renderSubNavigation(module, submodule),
+      renderSubmoduleHeading(submodule),
+      renderSubmoduleContent(submodule)
+    ].join("");
+
+    bindDynamicInputs();
+    saveUiState();
+  };
+
+  /* ================================================================
+   *  新建、编辑、删除、导入、导出与任务控制
+   * ================================================================ */
+
+  const showToast = (message, duration = 2600) => {
+    clearTimeout(toastTimer);
+    dom.toast.textContent = message;
+    dom.toast.classList.add("show");
+    toastTimer = setTimeout(() => {
+      dom.toast.classList.remove("show");
+    }, duration);
+  };
+
+  const ensureAuxiliaryDom = () => {
+    if (!document.getElementById("drawer")) {
+      const drawer = document.createElement("aside");
+      drawer.id = "drawer";
+      drawer.className = "drawer";
+      drawer.setAttribute("aria-hidden", "true");
+      document.body.appendChild(drawer);
+    }
+
+    if (!document.getElementById("importFile")) {
+      const fileInput = document.createElement("input");
+      fileInput.id = "importFile";
+      fileInput.type = "file";
+      fileInput.accept = ".json,.jsonl,.csv,text/csv,application/json";
+      fileInput.hidden = true;
+      document.body.appendChild(fileInput);
+      fileInput.addEventListener("change", async () => {
+        const [file] = fileInput.files || [];
+        if (file) {
+          await importFile(file);
+        }
+        fileInput.value = "";
+      });
+    }
+
+    if (!$(".modal-subtitle", dom.modal)) {
+      const heading = $(".modalhead > div", dom.modal);
+      if (!heading) {
+        const title = dom.modalTitle;
+        const wrapper = document.createElement("div");
+        title.parentNode.insertBefore(wrapper, title);
+        wrapper.appendChild(title);
+        const subtitle = document.createElement("p");
+        subtitle.className = "modal-subtitle";
+        subtitle.id = "modalSubtitle";
+        wrapper.appendChild(subtitle);
+      }
+    }
+
+    if (!$(".left-note", dom.modal)) {
+      const note = document.createElement("span");
+      note.className = "left-note";
+      note.textContent = "带 * 的字段为必填项";
+      $(".modalfoot", dom.modal).insertBefore(note, dom.modalCancel);
+    }
+  };
+
+  const closeModal = () => {
+    dom.modalBackdrop.classList.remove("open");
+    dom.modal.classList.remove("wide");
+    dom.modalForm.innerHTML = "";
+    ui.editingId = null;
+    ui.activeCollection = null;
+    document.body.style.overflow = "";
+  };
+
+  const fieldInputHtml = (field, value) => {
+    const id = `field-${field.key}`;
+    const requiredClass = field.required ? "required" : "";
+    const currentValue = value ?? "";
+    const fullClass = field.full ? "full" : "";
+
+    let input;
+
+    if (field.type === "select") {
+      input = `
+        <select id="${id}" name="${field.key}" ${field.required ? "required" : ""}>
+          <option value="">请选择</option>
+          ${field.options.map((option) => `
+            <option value="${escapeHtml(option)}" ${String(option) === String(currentValue) ? "selected" : ""}>${escapeHtml(option)}</option>
+          `).join("")}
+        </select>
+      `;
+    } else if (field.type === "textarea") {
+      input = `
+        <textarea
+          id="${id}"
+          name="${field.key}"
+          placeholder="${escapeHtml(field.placeholder || "")}"
+          ${field.required ? "required" : ""}
+        >${escapeHtml(currentValue)}</textarea>
+      `;
+    } else if (field.type === "checkbox") {
+      input = `
+        <label class="checkline">
+          <input id="${id}" name="${field.key}" type="checkbox" ${currentValue ? "checked" : ""}>
+          <span>启用该选项</span>
+        </label>
+      `;
+    } else {
+      input = `
+        <input
+          id="${id}"
+          name="${field.key}"
+          type="${field.type || "text"}"
+          value="${escapeHtml(currentValue)}"
+          placeholder="${escapeHtml(field.placeholder || "")}"
+          ${field.required ? "required" : ""}
+          ${field.min !== undefined ? `min="${field.min}"` : ""}
+          ${field.max !== undefined ? `max="${field.max}"` : ""}
+          ${field.step !== undefined ? `step="${field.step}"` : ""}
+        >
+      `;
+    }
+
+    return `
+      <div class="field ${fullClass}">
+        <label class="${requiredClass}" for="${id}">${escapeHtml(field.label)}</label>
+        ${input}
+        ${field.help ? `<span class="help">${escapeHtml(field.help)}</span>` : ""}
+      </div>
+    `;
+  };
+
+  const openRecordModal = (mode, id = null) => {
+    const submodule = getSubmodule();
+    const records = getRecords(submodule);
+    const sourceRecord = id ? records.find((record) => record.id === id) : null;
+
+    ui.modalMode = mode;
+    ui.editingId = sourceRecord?.id || null;
+    ui.activeCollection = submodule.collection;
+
+    const record = mode === "duplicate" && sourceRecord
+      ? {
+          ...sourceRecord,
+          id: undefined,
+          name: `${sourceRecord.name || submodule.title}（副本）`,
+          code: `${sourceRecord.code || "COPY"}-COPY`
+        }
+      : sourceRecord || {};
+
+    const actionLabel = mode === "edit"
+      ? `编辑${submodule.title}`
+      : mode === "duplicate"
+        ? `复制${submodule.title}`
+        : submodule.action;
+
+    dom.modalTitle.textContent = actionLabel;
+    const subtitle = document.getElementById("modalSubtitle");
+    if (subtitle) {
+      subtitle.textContent = `${getModule().title} / ${submodule.title}`;
+    }
+    dom.modalSubmit.textContent = mode === "edit" ? "保存修改" : "确认创建";
+    dom.modalForm.innerHTML = submodule.fields.map((field) => fieldInputHtml(field, record[field.key])).join("");
+    dom.modal.classList.toggle("wide", submodule.fields.length > 8);
+    dom.modalBackdrop.classList.add("open");
+    document.body.style.overflow = "hidden";
+
+    requestAnimationFrame(() => {
+      const firstInput = $("input:not([type=checkbox]), select, textarea", dom.modalForm);
+      firstInput?.focus();
+    });
+  };
+
+  const formToRecord = (submodule) => {
+    const record = {};
+    let valid = true;
+    let firstInvalid = null;
+
+    submodule.fields.forEach((field) => {
+      const input = dom.modalForm.querySelector(`[name="${field.key}"]`);
+      if (!input) {
+        return;
+      }
+
+      input.classList.remove("invalid");
+      let value;
+
+      if (field.type === "checkbox") {
+        value = input.checked;
+      } else if (field.type === "number") {
+        value = input.value === "" ? "" : Number(input.value);
+      } else {
+        value = input.value.trim();
+      }
+
+      if (field.required && (value === "" || value === null || value === undefined)) {
+        valid = false;
+        input.classList.add("invalid");
+        firstInvalid ||= input;
+      }
+
+      record[field.key] = value;
+    });
+
+    if (!valid) {
+      firstInvalid?.focus();
+      showToast("请完整填写所有必填字段。", 3000);
+      return null;
+    }
+
+    return record;
+  };
+
+  const generateApiToken = () => {
+    const bytes = new Uint8Array(24);
+    if (window.crypto?.getRandomValues) {
+      window.crypto.getRandomValues(bytes);
+    } else {
+      for (let index = 0; index < bytes.length; index += 1) {
+        bytes[index] = Math.floor(Math.random() * 256);
+      }
+    }
+    return `imsk_${Array.from(bytes).map((byte) => byte.toString(16).padStart(2, "0")).join("")}`;
+  };
+
+  const recordAudit = (action, object, result = "成功", risk = "普通") => {
+    state.collections.audits ||= [];
+    state.collections.audits.unshift({
+      id: makeId("AUD"),
+      name: `${action}${object}`,
+      code: makeId("AUDIT"),
+      operator: "高训",
+      action,
+      object,
+      risk,
+      status: result,
+      description: `通过系统界面执行${action}操作。`,
+      updatedAt: nowText()
+    });
+  };
+
+  const submitRecord = () => {
+    const submodule = getSubmodule();
+    const recordData = formToRecord(submodule);
+    if (!recordData) {
+      return;
+    }
+
+    const records = getRecords(submodule);
+
+    if (ui.modalMode === "edit") {
+      const index = records.findIndex((record) => record.id === ui.editingId);
+      if (index < 0) {
+        showToast("未找到需要编辑的记录。", 3000);
+        closeModal();
+        return;
+      }
+
+      records[index] = {
+        ...records[index],
+        ...recordData,
+        updatedAt: nowText()
+      };
+      recordAudit("修改", records[index].name || submodule.title);
+      showToast(`${submodule.title}已保存。`);
+    } else {
+      const record = {
+        id: makeId(submodule.key.slice(0, 6).toUpperCase()),
+        ...recordData,
+        updatedAt: nowText()
+      };
+
+      if (submodule.collection === "apiKeys") {
+        const rawToken = generateApiToken();
+        record.rawToken = rawToken;
+        record.token = `${rawToken.slice(0, 12)}••••••••${rawToken.slice(-4)}`;
+        record.calls = 0;
+      }
+
+      if (submodule.collection === "users") {
+        record.lastLogin = "尚未登录";
+      }
+
+      records.unshift(record);
+      recordAudit("创建", record.name || submodule.title);
+      showToast(`${submodule.title}已创建并保存。`);
+    }
+
+    saveState();
+    closeModal();
+    ui.page = 1;
+    render();
+  };
+
+  const deleteRecord = (id) => {
+    const submodule = getSubmodule();
+    const records = getRecords(submodule);
+    const record = records.find((item) => item.id === id);
+    if (!record) {
+      return;
+    }
+
+    if (state.settings.enableDangerConfirm) {
+      const confirmed = window.confirm(`确定删除“${record.name || record.code || id}”吗？该操作只影响当前浏览器中的本地数据。`);
+      if (!confirmed) {
+        return;
+      }
+    }
+
+    state.collections[submodule.collection] = records.filter((item) => item.id !== id);
+    recordAudit("删除", record.name || submodule.title, "成功", "重要");
+    saveState();
+    showToast("记录已删除。可通过恢复默认数据重新生成示例记录。");
+    render();
+  };
+
+  const duplicateRecord = (id) => {
+    openRecordModal("duplicate", id);
+  };
+
+  const openDrawer = (id) => {
+    const submodule = getSubmodule();
+    const record = getRecords(submodule).find((item) => item.id === id);
+    const drawer = document.getElementById("drawer");
+    if (!record || !drawer) {
+      return;
+    }
+
+    const fieldLabels = Object.fromEntries(submodule.fields.map((field) => [field.key, field.label]));
+    const visibleFields = Object.entries(record).filter(([key]) => !["id", "rawToken", "description"].includes(key));
+
+    drawer.innerHTML = `
+      <div class="drawer-head">
+        <div>
+          <h3>${escapeHtml(record.name || submodule.title)}</h3>
+          <p>${escapeHtml(record.code || record.id)} · ${escapeHtml(submodule.title)}</p>
+        </div>
+        <button class="icon" type="button" data-action="close-drawer" aria-label="关闭详情">×</button>
+      </div>
+      <div class="detail-grid">
+        ${visibleFields.map(([key, value]) => `
+          <div class="detail-item">
+            <small>${escapeHtml(fieldLabels[key] || key)}</small>
+            <b>${typeof value === "boolean" ? (value ? "是" : "否") : escapeHtml(value ?? "-")}</b>
+          </div>
+        `).join("")}
+      </div>
+      <div class="drawer-section">
+        <h4>功能说明</h4>
+        <div class="notice">${escapeHtml(record.description || submodule.description)}</div>
+      </div>
+      <div class="drawer-section">
+        <h4>原始记录</h4>
+        <pre class="json-preview">${escapeHtml(JSON.stringify({ ...record, rawToken: undefined }, null, 2))}</pre>
+      </div>
+      <div class="drawer-section" style="display:flex;justify-content:flex-end;gap:8px">
+        <button class="btn" type="button" data-action="edit" data-id="${escapeHtml(record.id)}">编辑记录</button>
+        <button class="btn primary" type="button" data-action="duplicate" data-id="${escapeHtml(record.id)}">复制记录</button>
+      </div>
+    `;
+
+    drawer.classList.add("open");
+    drawer.setAttribute("aria-hidden", "false");
+    ui.detailId = id;
+  };
+
+  const closeDrawer = () => {
+    const drawer = document.getElementById("drawer");
+    drawer?.classList.remove("open");
+    drawer?.setAttribute("aria-hidden", "true");
+    ui.detailId = null;
+  };
+
+  const resolveRunningStatus = (submodule) => {
+    const key = submodule.key;
+    if (/Evals|evaluation/i.test(key)) return "评测中";
+    if (/Checks|environment/i.test(key)) return "检查中";
+    if (/Imports/i.test(key)) return "运行中";
+    if (/modelPackages/i.test(key)) return "转换中";
+    if (/deployments/i.test(key)) return "部署中";
+    if (/releaseRecords/i.test(key)) return "发布中";
+    if (/routingLogs/i.test(key)) return "回放中";
+    return "运行中";
+  };
+
+  const toggleRunState = (id) => {
+    const submodule = getSubmodule();
+    const record = getRecords(submodule).find((item) => item.id === id);
+    if (!record) {
+      return;
+    }
+
+    if (submodule.collection === "endpoints") {
+      record.status = record.status === "运行中" ? "已停止" : "运行中";
+      recordAudit(record.status === "运行中" ? "启动" : "停止", record.name, "成功", "重要");
+    } else if (/运行|进行|部署中|转换中|发布中|回放中|检查中|评测中|测试中/.test(record.status)) {
+      record.status = "已暂停";
+      recordAudit("暂停", record.name);
+    } else {
+      if (Number(record.progress) >= 100) {
+        record.progress = 0;
+      }
+      record.status = resolveRunningStatus(submodule);
+      recordAudit("启动", record.name);
+    }
+
+    record.updatedAt = nowText();
+    saveState();
+    showToast(`${record.name}：${record.status}`);
+    render();
+  };
+
+  const csvEscape = (value) => {
+    const text = String(value ?? "");
+    if (/[",\n\r]/.test(text)) {
+      return `"${text.replaceAll('"', '""')}"`;
+    }
+    return text;
+  };
+
+  const downloadFile = (filename, content, type = "text/plain;charset=utf-8") => {
+    const blob = new Blob([content], { type });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+  const exportCsv = () => {
+    const submodule = getSubmodule();
+    const records = getFilteredRecords(submodule);
+    const keys = [...new Set(records.flatMap((record) => Object.keys(record).filter((key) => key !== "rawToken")))];
+    const headerLabels = Object.fromEntries(submodule.fields.map((field) => [field.key, field.label]));
+    const rows = [
+      keys.map((key) => csvEscape(headerLabels[key] || key)).join(","),
+      ...records.map((record) => keys.map((key) => csvEscape(record[key])).join(","))
+    ];
+    downloadFile(`${submodule.title}-${todayText()}.csv`, `\uFEFF${rows.join("\r\n")}`, "text/csv;charset=utf-8");
+    recordAudit("导出", `${submodule.title} CSV`);
+    saveState();
+    showToast(`已导出 ${records.length} 条记录。`);
+  };
+
+  const exportModuleData = () => {
+    const module = getModule();
+    const payload = {
+      software: APP_NAME,
+      module: module.title,
+      exportedAt: nowText(),
+      data: Object.fromEntries(module.subs
+        .filter((submodule) => submodule.collection && submodule.collection !== "settings")
+        .map((submodule) => [submodule.title, deepClone(getRecords(submodule)).map((record) => ({ ...record, rawToken: undefined }))]))
+    };
+    downloadFile(`${module.title}-模块数据-${todayText()}.json`, JSON.stringify(payload, null, 2), "application/json;charset=utf-8");
+    recordAudit("导出", `${module.title}模块数据`);
+    saveState();
+    showToast(`${module.title}模块数据已导出。`);
+  };
+
+  const exportModuleReport = () => {
+    const module = getModule();
+    const lines = [
+      APP_NAME,
+      `${module.title}模块功能说明报告`,
+      `生成时间：${nowText()}`,
+      `模块编号：${module.code}`,
+      "",
+      "一、模块定位",
+      module.description,
+      "",
+      "二、子模块及功能"
+    ];
+
+    module.subs.forEach((submodule, index) => {
+      lines.push("");
+      lines.push(`${index + 1}. ${submodule.title}`);
+      lines.push(`功能定位：${submodule.description}`);
+      lines.push(`当前记录数：${getRecords(submodule).length}`);
+      submodule.features.forEach((feature, featureIndex) => {
+        lines.push(`  ${featureIndex + 1}) ${feature}`);
+      });
+    });
+
+    downloadFile(`${module.title}-功能说明报告-${todayText()}.txt`, `\uFEFF${lines.join("\r\n")}`);
+    recordAudit("导出", `${module.title}功能说明报告`);
+    saveState();
+    showToast(`${module.title}功能说明报告已生成。`);
+  };
+
+  const parseCsvLine = (line) => {
+    const values = [];
+    let current = "";
+    let inQuotes = false;
+
+    for (let index = 0; index < line.length; index += 1) {
+      const character = line[index];
+      const nextCharacter = line[index + 1];
+
+      if (character === '"' && inQuotes && nextCharacter === '"') {
+        current += '"';
+        index += 1;
+      } else if (character === '"') {
+        inQuotes = !inQuotes;
+      } else if (character === "," && !inQuotes) {
+        values.push(current);
+        current = "";
+      } else {
+        current += character;
+      }
+    }
+
+    values.push(current);
+    return values;
+  };
+
+  const parseImportedContent = (file, text) => {
+    const extension = file.name.split(".").pop().toLowerCase();
+
+    if (extension === "json") {
+      const parsed = JSON.parse(text);
+      return Array.isArray(parsed) ? parsed : Array.isArray(parsed.data) ? parsed.data : [parsed];
+    }
+
+    if (extension === "jsonl") {
+      return text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).map((line) => JSON.parse(line));
+    }
+
+    if (extension === "csv") {
+      const lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter((line) => line.trim());
+      if (!lines.length) {
+        return [];
+      }
+      const headers = parseCsvLine(lines[0]);
+      return lines.slice(1).map((line) => {
+        const values = parseCsvLine(line);
+        return Object.fromEntries(headers.map((header, index) => [header.trim(), values[index] ?? ""]));
+      });
+    }
+
+    throw new Error("仅支持 JSON、JSONL 和 CSV 文件。");
+  };
+
+  const normalizeImportedRecord = (source, submodule) => {
+    const labelToKey = Object.fromEntries(submodule.fields.map((field) => [field.label, field.key]));
+    const record = {
+      id: source.id || makeId(submodule.key.slice(0, 6).toUpperCase()),
+      updatedAt: nowText()
+    };
+
+    Object.entries(source).forEach(([key, value]) => {
+      const normalizedKey = labelToKey[key] || key;
+      if (normalizedKey !== "rawToken") {
+        record[normalizedKey] = value;
+      }
+    });
+
+    submodule.fields.forEach((field) => {
+      if (record[field.key] === undefined) {
+        if (field.key === "name") record[field.key] = `导入的${submodule.title}`;
+        if (field.key === "code") record[field.key] = makeId("IMP");
+        if (field.key === "status") record[field.key] = field.options?.[0] || "已导入";
+      }
+    });
+
+    return record;
+  };
+
+  const importFile = async (file) => {
+    const submodule = getSubmodule();
+    try {
+      const text = await file.text();
+
+      if (submodule.collection === "dataImports") {
+        const task = {
+          id: makeId("IMPORT"),
+          name: `导入 ${file.name}`,
+          code: makeId("IMP"),
+          sourceType: "本地文件",
+          source: file.name,
+          format: file.name.split(".").pop().toUpperCase(),
+          progress: 100,
+          status: "已完成",
+          owner: "高训",
+          description: `已读取 ${(file.size / 1024).toFixed(1)} KB，本地校验完成。`,
+          updatedAt: nowText()
+        };
+        getRecords(submodule).unshift(task);
+        recordAudit("导入", file.name);
+        saveState();
+        showToast(`文件 ${file.name} 已登记为导入任务。`);
+        render();
+        return;
+      }
+
+      const records = parseImportedContent(file, text);
+      if (!records.length) {
+        throw new Error("文件中没有可导入记录。");
+      }
+
+      const normalized = records.map((record) => normalizeImportedRecord(record, submodule));
+      state.collections[submodule.collection].unshift(...normalized);
+      recordAudit("导入", `${file.name}（${normalized.length} 条）`);
+      saveState();
+      ui.page = 1;
+      showToast(`成功从 ${file.name} 导入 ${normalized.length} 条记录。`, 3500);
+      render();
+    } catch (error) {
+      console.error(error);
+      showToast(`导入失败：${error.message}`, 4500);
+    }
+  };
+
+  const copyText = async (text) => {
+    if (!text) {
+      throw new Error("没有可复制的内容");
+    }
+
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    textarea.remove();
+  };
+
+  const copyApiKey = async (id) => {
+    const record = (state.collections.apiKeys || []).find((item) => item.id === id);
+    if (!record) {
+      return;
+    }
+
+    try {
+      await copyText(record.rawToken || record.token);
+      showToast(record.rawToken ? "完整 API 密钥已复制。" : "仅保存了掩码，已复制掩码内容。", 3200);
+    } catch (error) {
+      showToast(`复制失败：${error.message}`, 3500);
+    }
+  };
+
+  const saveSettings = () => {
+    const form = document.getElementById("systemSettingsForm");
+    if (!form) {
+      return;
+    }
+
+    if (!form.reportValidity()) {
+      return;
+    }
+
+    const data = new FormData(form);
+    state.settings = {
+      ...state.settings,
+      systemName: String(data.get("systemName") || "").trim(),
+      organization: String(data.get("organization") || "").trim(),
+      timezone: data.get("timezone"),
+      timeFormat: data.get("timeFormat"),
+      defaultTrainingQueue: data.get("defaultTrainingQueue"),
+      defaultEvaluationBackend: data.get("defaultEvaluationBackend"),
+      defaultDeploymentEnvironment: data.get("defaultDeploymentEnvironment"),
+      modelRetentionDays: Number(data.get("modelRetentionDays")),
+      logRetentionDays: Number(data.get("logRetentionDays")),
+      checkpointRetentionDays: Number(data.get("checkpointRetentionDays")),
+      reportRetentionDays: Number(data.get("reportRetentionDays")),
+      enableAudit: data.get("enableAudit") === "on",
+      enableDangerConfirm: data.get("enableDangerConfirm") === "on",
+      updatedAt: nowText()
+    };
+    recordAudit("修改", "全局系统设置", "成功", "重要");
+    saveState();
+    $("header .title h1").textContent = state.settings.systemName;
+    showToast("系统设置已保存并立即生效。");
+    render();
+  };
+
+  const resetSettings = () => {
+    if (state.settings.enableDangerConfirm && !window.confirm("确定恢复默认系统设置吗？业务数据不会被删除。")) {
+      return;
+    }
+    state.settings = buildDefaultState().settings;
+    recordAudit("修改", "恢复默认系统设置", "成功", "重要");
+    saveState();
+    $("header .title h1").textContent = state.settings.systemName;
+    showToast("系统设置已恢复默认值。");
+    render();
+  };
+
+  const resetAllData = () => {
+    if (!window.confirm("确定恢复全部示例数据吗？当前浏览器中新增和修改的数据将被覆盖。")) {
+      return;
+    }
+    state = buildDefaultState();
+    saveState();
+    closeDrawer();
+    showToast("全部示例数据已恢复。", 3200);
+    render();
+  };
+
+  const runInference = () => {
+    const promptInput = document.getElementById("inferencePrompt");
+    const endpointSelect = document.getElementById("inferenceEndpoint");
+    const result = document.getElementById("inferenceResult");
+    const button = $("[data-action='infer']", dom.main);
+
+    if (!promptInput || !endpointSelect || !result || !button) {
+      return;
+    }
+
+    const prompt = promptInput.value.trim();
+    if (!prompt) {
+      promptInput.focus();
+      showToast("请输入需要分析的工业任务内容。");
+      return;
+    }
+
+    const endpoint = (state.collections.endpoints || []).find((item) => item.id === endpointSelect.value);
+    if (!endpoint || endpoint.status === "已停止" || endpoint.status === "异常") {
+      showToast("所选推理端点当前不可用。", 3200);
+      return;
+    }
+
+    clearTimeout(inferenceTimer);
+    button.disabled = true;
+    button.textContent = "推理中...";
+    result.textContent = "正在完成请求鉴权、动态适配器加载与工业知识推理...";
+
+    const start = performance.now();
+    inferenceTimer = setTimeout(() => {
+      const elapsed = Math.round(performance.now() - start);
+      const simulatedLatency = Math.max(185, Math.min(498, Number(endpoint.latency || elapsed)));
+      const response = [
+        "分析结论：发泡工位的振动幅值在近 30 分钟持续升高，并与温控偏差同步出现。",
+        "",
+        "可能原因：",
+        "1. 发泡夹具紧固状态发生变化，导致周期性机械振动；",
+        "2. 温控回路反馈延迟，使材料黏度与设备负载出现波动；",
+        "3. 当前趋势尚未达到停线阈值，但继续运行可能扩大质量偏差。",
+        "",
+        "处置建议：在下一生产节拍前检查夹具紧固状态和温控回路，完成二次振动采样；若峰值继续上升，应切换备用工位并创建维护工单。",
+        "",
+        `服务端点：${endpoint.path}`,
+        `模型版本：${endpoint.model}`,
+        `首 Token 时延：${simulatedLatency} ms · 总耗时：${Math.max(elapsed, simulatedLatency + 620)} ms`
+      ];
+
+      result.textContent = response.join("\n");
+      button.disabled = false;
+      button.textContent = "发送测试";
+      endpoint.qps = Number((Number(endpoint.qps || 0) + 0.1).toFixed(1));
+      endpoint.updatedAt = nowText();
+      recordAudit("调用", `${endpoint.name} 在线推理`);
+      saveState();
+    }, 900);
+  };
+
+  const clearInference = () => {
+    const prompt = document.getElementById("inferencePrompt");
+    const result = document.getElementById("inferenceResult");
+    if (prompt) prompt.value = "";
+    if (result) result.textContent = "等待发送测试请求。";
+    prompt?.focus();
+  };
+
+  const bindDynamicInputs = () => {
+    const search = document.getElementById("recordSearch");
+    const statusFilter = document.getElementById("statusFilter");
+    const dropzone = document.getElementById("dropzone");
+
+    if (search) {
+      search.addEventListener("input", () => {
+        ui.query = search.value;
+        ui.page = 1;
+        const selectionStart = search.selectionStart;
+        render();
+        const nextSearch = document.getElementById("recordSearch");
+        nextSearch?.focus();
+        nextSearch?.setSelectionRange(selectionStart, selectionStart);
+      });
+    }
+
+    if (statusFilter) {
+      statusFilter.addEventListener("change", () => {
+        ui.statusFilter = statusFilter.value;
+        ui.page = 1;
+        render();
+      });
+    }
+
+    if (dropzone) {
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          dropzone.classList.add("dragover");
+        });
+      });
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropzone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          dropzone.classList.remove("dragover");
+        });
+      });
+      dropzone.addEventListener("drop", (event) => {
+        const [file] = event.dataTransfer.files || [];
+        if (file) {
+          importFile(file);
+        }
+      });
+    }
+  };
+
+  const switchModule = (moduleKey) => {
+    const module = getModule(moduleKey);
+    ui.moduleKey = module.key;
+    ui.subKey = module.subs[0].key;
+    ui.query = "";
+    ui.statusFilter = "全部状态";
+    ui.sortKey = "updatedAt";
+    ui.sortDirection = "desc";
+    ui.page = 1;
+    closeDrawer();
+    dom.sidebar.classList.remove("open");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    render();
+  };
+
+  const switchSubmodule = (submoduleKey) => {
+    ui.subKey = submoduleKey;
+    ui.query = "";
+    ui.statusFilter = "全部状态";
+    ui.sortKey = "updatedAt";
+    ui.sortDirection = "desc";
+    ui.page = 1;
+    closeDrawer();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    render();
+  };
+
+  const handleAction = (button) => {
+    const action = button.dataset.action;
+    const id = button.dataset.id;
+
+    switch (action) {
+      case "switch-module":
+        switchModule(button.dataset.module);
+        break;
+      case "switch-submodule":
+        switchSubmodule(button.dataset.submodule);
+        break;
+      case "create":
+        openRecordModal("create");
+        break;
+      case "edit":
+        closeDrawer();
+        openRecordModal("edit", id);
+        break;
+      case "view":
+        openDrawer(id);
+        break;
+      case "duplicate":
+        closeDrawer();
+        duplicateRecord(id);
+        break;
+      case "delete":
+        deleteRecord(id);
+        break;
+      case "run-toggle":
+        toggleRunState(id);
+        break;
+      case "copy-key":
+        copyApiKey(id);
+        break;
+      case "close-drawer":
+        closeDrawer();
+        break;
+      case "sort":
+        if (ui.sortKey === button.dataset.sort) {
+          ui.sortDirection = ui.sortDirection === "asc" ? "desc" : "asc";
+        } else {
+          ui.sortKey = button.dataset.sort;
+          ui.sortDirection = "asc";
+        }
+        ui.page = 1;
+        render();
+        break;
+      case "page":
+        ui.page = Math.max(1, Number(button.dataset.page) || 1);
+        render();
+        break;
+      case "clear-filter":
+        ui.query = "";
+        ui.statusFilter = "全部状态";
+        ui.page = 1;
+        render();
+        break;
+      case "export-csv":
+        exportCsv();
+        break;
+      case "export-module":
+        exportModuleData();
+        break;
+      case "export-report":
+        exportModuleReport();
+        break;
+      case "import":
+        document.getElementById("importFile")?.click();
+        break;
+      case "save-settings":
+        saveSettings();
+        break;
+      case "reset-settings":
+        resetSettings();
+        break;
+      case "reset-all-data":
+        resetAllData();
+        break;
+      case "infer":
+        runInference();
+        break;
+      case "clear-inference":
+        clearInference();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const advanceBackgroundTasks = () => {
+    let changed = false;
+    const activePattern = /运行中|部署中|转换中|发布中|评测中|检查中|回放中|标注中/;
+
+    Object.values(state.collections).forEach((records) => {
+      if (!Array.isArray(records)) {
+        return;
+      }
+      records.forEach((record) => {
+        if (!activePattern.test(record.status || "") || record.progress === undefined || record.progress === "") {
+          return;
+        }
+        const current = Number(record.progress) || 0;
+        if (current >= 100) {
+          if (record.status !== "已完成") {
+            record.status = "已完成";
+            record.updatedAt = nowText();
+            changed = true;
+          }
+          return;
+        }
+        const increment = Math.max(1, Math.floor(Math.random() * 4));
+        record.progress = Math.min(100, current + increment);
+        if (record.loss !== undefined && Number.isFinite(Number(record.loss))) {
+          record.loss = Math.max(0.01, Number((Number(record.loss) * 0.996).toFixed(3)));
+        }
+        if (record.progress >= 100) {
+          record.status = "已完成";
+        }
+        record.updatedAt = nowText();
+        changed = true;
+      });
+    });
+
+    if (changed) {
+      saveState();
+      const activeSubmodule = getSubmodule();
+      const activeElement = document.activeElement;
+      const userIsEditing = dom.modalBackdrop.classList.contains("open")
+        || ["INPUT", "SELECT", "TEXTAREA"].includes(activeElement?.tagName);
+      if (["jobs", "imports"].includes(activeSubmodule.view) && !userIsEditing) {
+        render();
+      }
+    }
+  };
+
+  /* ================================================================
+   *  初始化与全局事件
+   * ================================================================ */
+
+  const refreshOperationalData = () => {
+    (state.collections.nodes || []).forEach((node) => {
+      if (node.status !== "离线" && node.status !== "维护") {
+        const current = Number(node.utilization) || 0;
+        node.utilization = Math.max(2, Math.min(98, current + Math.round(Math.random() * 8 - 4)));
+        if (node.temperature !== undefined) {
+          node.temperature = Math.max(35, Math.min(89, Number(node.temperature) + Math.round(Math.random() * 4 - 2)));
+        }
+        node.updatedAt = nowText();
+      }
+    });
+
+    (state.collections.endpoints || []).forEach((endpoint) => {
+      if (endpoint.status === "运行中" || endpoint.status === "灰度中") {
+        endpoint.latency = Math.max(120, Math.min(650, Number(endpoint.latency || 400) + Math.round(Math.random() * 30 - 15)));
+        endpoint.qps = Math.max(0, Number((Number(endpoint.qps || 0) + Math.random() * 2 - 1).toFixed(1)));
+        endpoint.updatedAt = nowText();
+      }
+    });
+
+    saveState();
+    render();
+    showToast("运行数据已刷新，节点与推理指标已更新。");
+  };
+
+  const initialize = () => {
+    ensureAuxiliaryDom();
+
+    const activeModule = getModule(ui.moduleKey);
+    ui.moduleKey = activeModule.key;
+    const activeSubmodule = getSubmodule(activeModule, ui.subKey);
+    ui.subKey = activeSubmodule.key;
+
+    $("header .title h1").textContent = state.settings.systemName || APP_NAME;
+
+    dom.modalSubmit.addEventListener("click", submitRecord);
+    dom.modalCancel.addEventListener("click", closeModal);
+    dom.modalClose.addEventListener("click", closeModal);
+
+    dom.modalBackdrop.addEventListener("click", (event) => {
+      if (event.target === dom.modalBackdrop) {
+        closeModal();
+      }
+    });
+
+    dom.menu.addEventListener("click", () => {
+      dom.sidebar.classList.toggle("open");
+    });
+
+    dom.refresh.addEventListener("click", refreshOperationalData);
+
+    document.addEventListener("click", (event) => {
+      const actionTarget = event.target.closest("[data-action]");
+      if (!actionTarget) {
+        return;
+      }
+      handleAction(actionTarget);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (dom.modalBackdrop.classList.contains("open")) {
+          closeModal();
+        } else {
+          closeDrawer();
+          dom.sidebar.classList.remove("open");
+        }
+      }
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+        const settingsForm = document.getElementById("systemSettingsForm");
+        if (settingsForm) {
+          event.preventDefault();
+          saveSettings();
+        }
+      }
+    });
+
+    window.addEventListener("storage", (event) => {
+      if (event.key === STORAGE_KEY && event.newValue) {
+        try {
+          state = mergeWithDefaults(JSON.parse(event.newValue));
+          render();
+          showToast("检测到其他窗口的数据更新，当前页面已同步。", 3200);
+        } catch (error) {
+          console.warn("跨窗口数据同步失败。", error);
+        }
+      }
+    });
+
+    window.addEventListener("beforeunload", () => {
+      saveState();
+      saveUiState();
+    });
+
+    render();
+    setInterval(advanceBackgroundTasks, 15000);
+  };
+
+  initialize();
+})();
+
+  </script>
+</body>
+</html>
